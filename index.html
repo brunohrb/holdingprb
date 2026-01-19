@@ -196,10 +196,13 @@
             margin-top: 50px;
         }
         /* PADRONIZA ALTURA DOS CARDS */
-.buttons-container .btn {
+
+        /* ALTURA PADRÃO SÓ PARA CARDS DE IMÓVEIS */
+.card-imovel {
     height: 180px;
     justify-content: center;
 }
+
 
         .btn {
             padding: 20px 30px;
@@ -282,7 +285,9 @@
         @media (max-width: 768px) {
             h2 {
                 font-size: 40px;
-            }
+                .card-imovel {
+    height: 150px;
+}
 
             .buttons-container {
                 grid-template-columns: 1fr;
@@ -362,13 +367,13 @@
 <div id="submenu-gerenciadora" class="container" style="display:none;">
     <div class="buttons-container">
 
-        <a href="https://brunohrb.github.io/bandeiraimoveis" target="_blank" class="btn btn-primary">
+<a href="https://brunohrb.github.io/bandeiraimoveis" target="_blank" class="btn btn-primary card-imovel">
             <span class="btn-icon">🏠</span>
             <span class="btn-label">Imóveis Mensal</span>
             <span class="btn-sublabel">Contratos recorrentes</span>
         </a>
 
-        <a href="https://brunohrb.github.io/bandeirabeachhouse" target="_blank" class="btn btn-secondary">
+<a href="https://brunohrb.github.io/bandeirabeachhouse" target="_blank" class="btn btn-secondary card-imovel">
             <span class="btn-icon">🌴</span>
             <span class="btn-label">Imóveis por Temporada</span>
             <span class="btn-sublabel">Airbnb · Booking</span>
@@ -405,6 +410,7 @@ function voltarGerenciadora() {
     </script>
 </body>
 </html>
+
 
 
 
