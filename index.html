@@ -318,7 +318,7 @@
     </div>
 
     <!-- Main content -->
-    <div class="container">
+<div class="container" id="tela-home">
         <!-- Header -->
         <div class="header">
             <div class="logo">
@@ -382,10 +382,16 @@
             console.log('Portal PRB carregado com sucesso!');
         });
 
- function abrirGerenciadora() {
-        document.querySelector('.buttons-container').style.display = 'none';
-        document.getElementById('submenu-gerenciadora').style.display = 'grid';
-    }
+function abrirGerenciadora() {
+    document.getElementById('tela-home').style.display = 'none';
+    document.getElementById('submenu-gerenciadora').style.display = 'block';
+}
+
+function voltarGerenciadora() {
+    document.getElementById('submenu-gerenciadora').style.display = 'none';
+    document.getElementById('tela-home').style.display = 'block';
+}
+
 
     function voltarGerenciadora() {
         document.getElementById('submenu-gerenciadora').style.display = 'none';
@@ -394,6 +400,7 @@
     </script>
 </body>
 </html>
+
 
 
 
