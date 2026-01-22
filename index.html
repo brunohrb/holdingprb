@@ -319,6 +319,7 @@ table {
 =========================== */
 let chartsAnalitica = {};
 let currentViewMode = "cards";
+let despesaEmEdicao = null;
 
 
 const DB_RESERVAS = "DB_RESERVAS";
@@ -1034,64 +1035,64 @@ function openDespesaModal() {
 
 
         
-        function closeDespesaModal(){
-            document.getElementById("despesaModal").classList.remove("active")
-        }
+function closeDespesaModal() {
+    document.getElementById("despesaModal").classList.remove("active");
+    despesaEmEdicao = null; // Reset para garantir que o próximo "Novo" venha limpo
+}
         
         function salvarDespesa() {
-
     const despesas = getDb(DB_DESPESAS);
+    const unidade = document.getElementById("despesaUnidade").value;
+    const descricao = document.getElementById("despesaDescricao").value;
+    const categoria = document.getElementById("despesaCategoria").value;
+    const data = document.getElementById("despesaData").value;
+    const valorRaw = document.getElementById("despesaValor").value;
 
     const valorNumerico = parseFloat(
-        $("#despesaValor").val()
+        valorRaw
             .replace("R$", "")
             .replace(/\./g, "")
             .replace(",", ".")
+            .trim()
     );
 
- if (
-    !$("#despesaUnidade").val() ||
-    !$("#despesaDescricao").val() ||
-    !$("#despesaCategoria").val() ||
-    !$("#despesaData").val() ||
-    isNaN(valorNumerico)
-) {
-    alert("⚠️ Preencha todos os campos!");
-    return;
-}
+    if (!unidade || !descricao || !categoria || !data || isNaN(valorNumerico)) {
+        alert("⚠️ Preencha todos os campos corretamente!");
+        return;
+    }
 
-
-if (despesaEmEdicao !== null) {
-    // ✏️ EDITAR EXISTENTE
-    despesas[despesaEmEdicao] = {
-        ...despesas[despesaEmEdicao],
-        unidade: $("#despesaUnidade").val(),
-        descricao: $("#despesaDescricao").val(),
-        categoria: $("#despesaCategoria").val(),
-        data: $("#despesaData").val(),
-        valor: valorNumerico
-    };
-} else {
-    // ➕ NOVA
-    despesas.push({
-        id: `desp_${Date.now()}`,
-        unidade: $("#despesaUnidade").val(),
-        descricao: $("#despesaDescricao").val(),
-        categoria: $("#despesaCategoria").val(),
-        data: $("#despesaData").val(),
-        valor: valorNumerico
-    });
-}
-
+    if (despesaEmEdicao !== null) {
+        // ✏️ EDITAR EXISTENTE
+        despesas[despesaEmEdicao] = {
+            ...despesas[despesaEmEdicao],
+            unidade: unidade,
+            descricao: descricao,
+            categoria: categoria,
+            data: data,
+            valor: valorNumerico
+        };
+    } else {
+        // ➕ NOVA
+        despesas.push({
+            id: `desp_${Date.now()}`,
+            unidade: unidade,
+            descricao: descricao,
+            categoria: categoria,
+            data: data,
+            valor: valorNumerico
+        });
+    }
 
     saveDb(DB_DESPESAS, despesas);
-
     despesaEmEdicao = null;
 
     closeDespesaModal();
-    renderViews();
-renderTabelaDespesasDetalhada();
-
+    
+    // Atualiza todas as visualizações
+    if (typeof renderViews === "function") renderViews();
+    if (typeof renderTabelaDespesasDetalhada === "function") renderTabelaDespesasDetalhada();
+    
+    alert("✅ Despesa salva com sucesso!");
 }
 
         
