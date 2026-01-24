@@ -95,8 +95,10 @@
             color: #999;
             width: auto;
             padding: 5px;
+            cursor: pointer;
+            border: 1px solid #eee;
         }
-        .delete-btn:hover { color: var(--danger); }
+        .delete-btn:hover { color: var(--danger); border-color: var(--danger); }
 
     </style>
 </head>
@@ -170,7 +172,9 @@
             updatePayerSelect();
             updateBalances(); // Recalcula caso haja despesas antigas
             nameInput.value = '';
-            alert(`${name} adicionado!`);
+            // Feedback visual rápido
+            nameInput.placeholder = "Adicionado! Digite outro...";
+            setTimeout(() => nameInput.placeholder = "Nome da pessoa (ex: João)", 2000);
         } else if (people.includes(name)) {
             alert('Essa pessoa já está na lista.');
         } else {
@@ -221,13 +225,21 @@
     // --- Atualização da Interface ---
 
     function updatePayerSelect() {
+        // Salva a seleção atual se houver
+        const currentSelection = payerSelect.value;
+        
         payerSelect.innerHTML = '<option value="" disabled selected>Selecione...</option>';
         people.forEach(person => {
             const option = document.createElement('option');
-            value = person;
+            option.value = person;
             option.textContent = person;
             payerSelect.appendChild(option);
         });
+
+        // Restaura seleção se a pessoa ainda existir
+        if (people.includes(currentSelection)) {
+            payerSelect.value = currentSelection;
+        }
     }
 
     function renderExpenses() {
@@ -238,11 +250,11 @@
             li.innerHTML = `
                 <div class="expense-info">
                     <strong>${exp.description}</strong>
-                    <small>${exp.payer} pagou R$ ${exp.amount.toFixed(2)} em ${exp.date}</small>
+                    <small>${exp.payer} pagou R$ ${exp.amount.toFixed(2)}</small>
                 </div>
                 <div style="display:flex; align-items:center; gap:10px;">
                     <span style="font-weight:bold; color:var(--primary);">R$ ${exp.amount.toFixed(2)}</span>
-                    <button class="delete-btn" onclick="removeExpense(${exp.id})">🗑️</button>
+                    <button class="delete-btn" onclick="removeExpense(${exp.id})" title="Apagar">🗑️</button>
                 </div>
             `;
             expensesList.appendChild(li);
@@ -264,10 +276,8 @@
             const amount = exp.amount;
             const splitAmount = amount / people.length; // Divisão simples igualitária entre todos
 
-            // Quem pagou recebe crédito total (menos a parte dele)
-            // Mas para simplificar a matemática:
-            // Payer paga +Amount
-            // Todos (incluindo payer) devem -SplitAmount
+            // Quem pagou recebe o valor total pago (crédito)
+            // Mas todos (inclusive quem pagou) devem a parcela (débito)
             
             people.forEach(person => {
                 if (person === payer) {
@@ -291,6 +301,7 @@
             let text = '';
             let classColor = '';
 
+            // Tolerância pequena para erros de ponto flutuante
             if (amount > 0.01) {
                 text = `recebe R$ ${amount.toFixed(2)}`;
                 classColor = 'receive';
