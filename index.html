@@ -3,413 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRB Holding - Portal</title>
+    <title>Clone Splitwise - Divisor de Contas</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #5bc5a7; /* Verde Splitwise */
+            --dark: #333;
+            --light: #f6f6f6;
+            --danger: #ff652f;
+            --success: #5bc5a7;
         }
 
-        body {
-            font-family: 'Playfair Display', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #0f172a 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Animated background elements */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .blob1 {
-            width: 300px;
-            height: 300px;
-            background: rgba(212, 175, 55, 0.3);
-            top: -50px;
-            right: -50px;
-            animation-delay: 0s;
-        }
-
-        .blob2 {
-            width: 250px;
-            height: 250px;
-            background: rgba(59, 130, 246, 0.2);
-            bottom: -50px;
-            left: -50px;
-            animation-delay: 2s;
-        }
-
-        .blob3 {
-            width: 200px;
-            height: 200px;
-            background: rgba(212, 175, 55, 0.2);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(30px, -30px);
-            }
-            50% {
-                transform: translate(-20px, 20px);
-            }
-            75% {
-                transform: translate(20px, 30px);
-            }
-        }
-
-        /* Main container */
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 900px;
-            width: 90%;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: var(--light); color: var(--dark); padding-bottom: 50px;}
 
         /* Header */
-        .header {
-            margin-bottom: 60px;
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 28px;
-            color: #1e40af;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-            }
-        }
-
-        .logo-text h1 {
-            font-size: 36px;
-            color: #ffffff;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
-        }
-
-        .logo-text p {
-            font-size: 14px;
-            color: #93c5fd;
-            margin: 5px 0 0 0;
-            font-weight: 500;
-        }
-
-        /* Title */
-        h2 {
-            font-size: 56px;
-            color: #ffffff;
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
             margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.2;
-            animation: slideInUp 0.8s ease-out 0.2s both;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .subtitle {
-            font-size: 18px;
-            color: #bfdbfe;
-            margin-bottom: 60px;
-            font-weight: 400;
-            animation: slideInUp 0.8s ease-out 0.4s both;
-        }
+        h2 { font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 10px; }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Buttons container */
-        .buttons-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 50px;
-        }
-        /* PADRONIZA ALTURA DOS CARDS */
-
-        /* ALTURA PADRÃO SÓ PARA CARDS DE IMÓVEIS */
-.card-imovel {
-    height: 180px;
-    justify-content: center;
-}
-
-
-        .btn {
-            padding: 20px 30px;
-            border: none;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            animation: slideInUp 0.8s ease-out 0.6s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        /* Forms */
+        .form-group { margin-bottom: 10px; }
+        input, select {
             width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: left 0.3s ease;
-            z-index: -1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
         }
-
-        .btn:hover::before {
-            left: 100%;
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
         }
+        button:hover { opacity: 0.9; }
+        button.secondary { background-color: #666; margin-top: 10px;}
 
-        .btn-primary {
-            background: linear-gradient(135deg, #1e40af, #1e3a8a);
-            color: #ffffff;
-            border: 2px solid #3b82f6;
-            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+        /* Balances Styling */
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
         }
+        .owe { color: var(--danger); }
+        .receive { color: var(--success); font-weight: bold; }
 
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(30, 64, 175, 0.5);
-            border-color: #d4af37;
+        /* List Styling */
+        ul { list-style: none; }
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            margin-bottom: 5px;
+            border-radius: 5px;
         }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #1e3a8a, #0f172a);
-            color: #ffffff;
-            border: 2px solid #d4af37;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        .expense-info small { color: #888; display: block;}
+        .delete-btn {
+            background: transparent;
+            color: #999;
+            width: auto;
+            padding: 5px;
         }
+        .delete-btn:hover { color: var(--danger); }
 
-        .btn-secondary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            color: #1e40af;
-            border-color: #ffffff;
-        }
-
-        .btn-icon {
-            font-size: 32px;
-        }
-
-        .btn-label {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .btn-sublabel {
-            font-size: 12px;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 40px;
-                .card-imovel {
-    height: 150px;
-}
-
-            .buttons-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .btn {
-                padding: 18px 24px;
-                font-size: 16px;
-            }
-
-            .logo-text h1 {
-                font-size: 28px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-            /* AJUSTE FINO SÓ DA TELA GERENCIADORA */
-.tela-gerenciadora h2 {
-    font-size: 30px;
-}
-
-.tela-gerenciadora .subtitle {
-    font-size: 14px;
-    margin-bottom: 30px;
-}
-
-        }
     </style>
 </head>
 <body>
-    <!-- Animated background -->
-    <div class="bg-animation">
-        <div class="blob blob1"></div>
-        <div class="blob blob2"></div>
-        <div class="blob blob3"></div>
-    </div>
 
-    <!-- Main content -->
-<div class="container" id="tela-home">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">PRB</div>
-                <div class="logo-text">
-                    <h1>PRB Holding</h1>
-                    <p>Sistema Integrado</p>
-                </div>
-            </div>
-        </div>
+<header>
+    <h1>💰 Divisor de Contas</h1>
+</header>
 
-        <!-- Title -->
-        <h2>Bem-vindo a Holding PRB</h2>
-        <p class="subtitle">Escolha sua Bandeira para continuar</p>
+<div class="container">
 
-        <!-- Buttons -->
-        <div class="buttons-container">
-            <!-- Button 1: Bandeira Gerenciadora de Imóveis -->
-            <a href="javascript:void(0)" onclick="abrirGerenciadora()" class="btn btn-primary">
-
-                <span class="btn-icon">🏢</span>
-                <span class="btn-label">Gerenciadora</span>
-                <span class="btn-sublabel">de Imóveis</span>
-            </a>
-
-            <!-- Button 2: Bandeira Empresarial -->
-            <a href="https://brunohrb.github.io/prb/" target="_blank" class="btn btn-secondary">
-                <span class="btn-icon">💼</span>
-                <span class="btn-label">Empresarial</span>
-                <span class="btn-sublabel">Pró-Labore</span>
-            </a>
+    <div class="card">
+        <h2>Balanço Geral</h2>
+        <div id="balanceList">
+            <p style="text-align:center; color:#999;">Adicione pessoas e despesas para ver o saldo.</p>
         </div>
     </div>
 
-<!-- TELA GERENCIADORA -->
-<div id="submenu-gerenciadora" class="container" style="display:none;">
-    <div class="buttons-container">
-
-<a href="https://brunohrb.github.io/bandeiraimoveis" target="_blank" class="btn btn-primary card-imovel">
-            <span class="btn-icon">🏠</span>
-            <span class="btn-label">Imóveis Mensal</span>
-            <span class="btn-sublabel">Contratos recorrentes</span>
-        </a>
-
-<a href="https://brunohrb.github.io/bandeirabeachhouse" target="_blank" class="btn btn-secondary card-imovel">
-            <span class="btn-icon">🌴</span>
-            <span class="btn-label">Imóveis por Temporada</span>
-            <span class="btn-sublabel">Airbnb · Booking</span>
-        </a>
-
-        <div class="btn btn-secondary" onclick="voltarGerenciadora()" style="grid-column: span 2;">
-            ← Voltar
+    <div class="card">
+        <h2>👥 Adicionar Amigo</h2>
+        <div class="form-group">
+            <input type="text" id="newPersonName" placeholder="Nome da pessoa (ex: João)">
         </div>
-
+        <button onclick="addPerson()">Adicionar Pessoa</button>
     </div>
+
+    <div class="card">
+        <h2>💸 Adicionar Despesa</h2>
+        <div class="form-group">
+            <label>Quem pagou?</label>
+            <select id="payerSelect">
+                <option value="" disabled selected>Selecione...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" id="descInput" placeholder="Descrição (ex: Pizza, Uber)">
+        </div>
+        <div class="form-group">
+            <input type="number" id="amountInput" placeholder="Valor (R$)" step="0.01">
+        </div>
+        <button onclick="addExpense()">Dividir Igualmente</button>
+    </div>
+
+    <div class="card">
+        <h2>📜 Histórico de Despesas</h2>
+        <ul id="expensesList">
+            </ul>
+        <button class="secondary" onclick="resetApp()">Reiniciar Tudo</button>
+    </div>
+
 </div>
 
-    <script>
-        // Smooth scroll on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Portal PRB carregado com sucesso!');
+<script>
+    // --- Estado da Aplicação ---
+    let people = [];
+    let expenses = [];
+
+    // --- Elementos do DOM ---
+    const payerSelect = document.getElementById('payerSelect');
+    const expensesList = document.getElementById('expensesList');
+    const balanceList = document.getElementById('balanceList');
+
+    // --- Funções Principais ---
+
+    function addPerson() {
+        const nameInput = document.getElementById('newPersonName');
+        const name = nameInput.value.trim();
+
+        if (name && !people.includes(name)) {
+            people.push(name);
+            updatePayerSelect();
+            updateBalances(); // Recalcula caso haja despesas antigas
+            nameInput.value = '';
+            alert(`${name} adicionado!`);
+        } else if (people.includes(name)) {
+            alert('Essa pessoa já está na lista.');
+        } else {
+            alert('Digite um nome válido.');
+        }
+    }
+
+    function addExpense() {
+        const payer = payerSelect.value;
+        const description = document.getElementById('descInput').value.trim();
+        const amount = parseFloat(document.getElementById('amountInput').value);
+
+        if (people.length < 2) {
+            alert('Adicione pelo menos 2 pessoas para dividir a conta.');
+            return;
+        }
+
+        if (!payer || !description || isNaN(amount) || amount <= 0) {
+            alert('Preencha todos os campos corretamente.');
+            return;
+        }
+
+        const expense = {
+            id: Date.now(),
+            payer: payer,
+            description: description,
+            amount: amount,
+            date: new Date().toLocaleDateString()
+        };
+
+        expenses.push(expense);
+        renderExpenses();
+        updateBalances();
+        
+        // Limpar campos
+        document.getElementById('descInput').value = '';
+        document.getElementById('amountInput').value = '';
+    }
+
+    function removeExpense(id) {
+        if(confirm('Tem certeza que deseja apagar esta despesa?')) {
+            expenses = expenses.filter(exp => exp.id !== id);
+            renderExpenses();
+            updateBalances();
+        }
+    }
+
+    // --- Atualização da Interface ---
+
+    function updatePayerSelect() {
+        payerSelect.innerHTML = '<option value="" disabled selected>Selecione...</option>';
+        people.forEach(person => {
+            const option = document.createElement('option');
+            value = person;
+            option.textContent = person;
+            payerSelect.appendChild(option);
+        });
+    }
+
+    function renderExpenses() {
+        expensesList.innerHTML = '';
+        expenses.slice().reverse().forEach(exp => {
+            const li = document.createElement('li');
+            li.className = 'expense-item';
+            li.innerHTML = `
+                <div class="expense-info">
+                    <strong>${exp.description}</strong>
+                    <small>${exp.payer} pagou R$ ${exp.amount.toFixed(2)} em ${exp.date}</small>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-weight:bold; color:var(--primary);">R$ ${exp.amount.toFixed(2)}</span>
+                    <button class="delete-btn" onclick="removeExpense(${exp.id})">🗑️</button>
+                </div>
+            `;
+            expensesList.appendChild(li);
+        });
+    }
+
+    // --- Lógica de Cálculo do Splitwise ---
+    function updateBalances() {
+        if (people.length === 0) return;
+
+        let balances = {};
+        
+        // Inicializa zerado
+        people.forEach(p => balances[p] = 0);
+
+        // Calcula quem pagou o quê
+        expenses.forEach(exp => {
+            const payer = exp.payer;
+            const amount = exp.amount;
+            const splitAmount = amount / people.length; // Divisão simples igualitária entre todos
+
+            // Quem pagou recebe crédito total (menos a parte dele)
+            // Mas para simplificar a matemática:
+            // Payer paga +Amount
+            // Todos (incluindo payer) devem -SplitAmount
+            
+            people.forEach(person => {
+                if (person === payer) {
+                    balances[person] += (amount - splitAmount);
+                } else {
+                    balances[person] -= splitAmount;
+                }
+            });
         });
 
-function abrirGerenciadora() {
-    document.getElementById('tela-home').style.display = 'none';
-    document.getElementById('submenu-gerenciadora').style.display = 'block';
-}
+        // Renderiza Balanço
+        balanceList.innerHTML = '';
+        let hasData = false;
 
-   function voltarGerenciadora() {
-    document.getElementById('submenu-gerenciadora').style.display = 'none';
-    document.getElementById('tela-home').style.display = 'block';
-}
-    </script>
+        for (const [person, amount] of Object.entries(balances)) {
+            if (people.length > 0) hasData = true;
+            
+            const div = document.createElement('div');
+            div.className = 'balance-item';
+            
+            let text = '';
+            let classColor = '';
+
+            if (amount > 0.01) {
+                text = `recebe R$ ${amount.toFixed(2)}`;
+                classColor = 'receive';
+            } else if (amount < -0.01) {
+                text = `deve R$ ${Math.abs(amount).toFixed(2)}`;
+                classColor = 'owe';
+            } else {
+                text = 'está quite';
+                classColor = 'text-muted';
+            }
+
+            div.innerHTML = `<span>${person}</span> <span class="${classColor}">${text}</span>`;
+            balanceList.appendChild(div);
+        }
+
+        if (!hasData) {
+            balanceList.innerHTML = '<p style="text-align:center; color:#999;">Adicione pessoas e despesas.</p>';
+        }
+    }
+
+    function resetApp() {
+        if(confirm("Isso apagará todos os dados. Continuar?")) {
+            people = [];
+            expenses = [];
+            updatePayerSelect();
+            renderExpenses();
+            updateBalances();
+        }
+    }
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
