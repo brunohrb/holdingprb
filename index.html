@@ -3,121 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clone Splitwise - Seleção Múltiplas</title>
+    <title>Spotyfi do Carnaval - Divisor de Contas</title>
     <style>
+        /* --- PALETA DE CORES "SPOTYFI" --- */
         :root {
-            --primary: #5bc5a7; /* Verde Splitwise */
-            --dark: #333;
-            --light: #f6f6f6;
-            --danger: #ff652f;
-            --success: #5bc5a7;
-            --border: #ddd;
+            --bg-main: #121212;      /* Fundo principal preto */
+            --bg-card: #181818;      /* Fundo dos cartões (cinza muito escuro) */
+            --bg-input: #282828;     /* Fundo dos inputs */
+            --primary: #1DB954;      /* Verde Spotify Neon */
+            --text-light: #FFFFFF;   /* Texto branco */
+            --text-muted: #B3B3B3;   /* Texto cinza claro */
+            --danger: #E91429;       /* Vermelho vibrante para dívidas/apagar */
+            --border-radius: 12px;   /* Bordas arredondadas modernas */
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Circular Std', 'Segoe UI', Tahoma, sans-serif; }
         
-        body { background-color: var(--light); color: var(--dark); padding-bottom: 80px;}
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-light); 
+            padding-bottom: 80px;
         }
 
-        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+        /* Header estilo App de Música */
+        header {
+            background: linear-gradient(180deg, rgba(29,185,84,0.15) 0%, var(--bg-main) 100%);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+
+        /* Cards Modernos e Escuros */
         .card {
-            background: white;
-            border-radius: 8px;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        h2 { font-size: 1.1rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 10px; color: #444;}
+        h2 { 
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+            color: var(--text-light);
+            font-weight: 600;
+        }
 
-        /* Form Elements */
+        /* Inputs Estilizados */
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
+        label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600;}
         
         input[type="text"], input[type="number"], select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
+            padding: 14px;
+            background-color: var(--bg-input);
+            border: 1px solid transparent;
+            color: var(--text-light);
             border-radius: 6px;
             font-size: 1rem;
+            transition: 0.3s;
+        }
+        input::placeholder { color: #666; }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(29,185,84,0.2);
         }
 
+        /* Botões Estilo "Play" */
         button {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 50px; /* Botão pílula */
             background-color: var(--primary);
-            color: white;
+            color: #000; /* Texto preto no verde para contraste */
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 0.2s, filter 0.2s;
         }
-        button:hover { filter: brightness(90%); }
-        button.secondary { background-color: #6c757d; margin-top: 10px; }
+        button:hover { filter: brightness(1.1); transform: scale(1.02); }
+        button:active { transform: scale(0.98); }
+        
+        button.secondary { 
+            background-color: transparent; 
+            border: 1px solid var(--text-muted); 
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+        button.small-btn {
+            width: auto;
+            padding: 14px 20px;
+            border-radius: 6px;
+        }
 
-        /* Participantes Checkboxes */
+        /* Participantes Checkboxes (Tags estilo playlist) */
         .participants-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 8px;
             margin-top: 5px;
         }
 
-        .participant-option {
-            position: relative;
-        }
-
-        .participant-option input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
+        .participant-option { position: relative; }
+        .participant-option input { position: absolute; opacity: 0; cursor: pointer; }
 
         .participant-option label {
             display: block;
-            background: #eee;
-            padding: 8px;
+            background: var(--bg-input);
+            color: var(--text-muted);
+            padding: 10px 16px;
             text-align: center;
-            border-radius: 4px;
+            border-radius: 50px;
             cursor: pointer;
-            border: 1px solid transparent;
-            font-weight: normal;
-            font-size: 0.85rem;
-            margin: 0;
+            border: 1px solid #333;
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: 0.2s;
         }
 
         /* Estilo quando selecionado */
         .participant-option input:checked + label {
-            background-color: #e0f7fa;
+            background-color: var(--primary);
+            color: #000;
             border-color: var(--primary);
-            color: var(--primary);
             font-weight: bold;
         }
         
-        .participant-option input:checked + label::before {
-            content: '✔ ';
+        /* Tags de pessoas adicionadas */
+        .person-tag {
+            background: #333;
+            color: var(--text-light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: inline-block;
         }
 
         /* Balances */
         .balance-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            font-size: 1.1rem;
         }
         .owe { color: var(--danger); }
-        .receive { color: var(--success); font-weight: bold; }
+        .receive { color: var(--primary); font-weight: bold; }
 
         /* Lista de Despesas */
         ul { list-style: none; }
@@ -125,82 +164,88 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            background: #fff;
-            border: 1px solid #eee;
-            margin-bottom: 8px;
-            border-radius: 6px;
+            padding: 15px;
+            background: var(--bg-input);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary); /* Detalhe verde lateral */
         }
-        .expense-details small { color: #777; font-size: 0.8rem; display: block; margin-top: 2px;}
+        .expense-details strong { display: block; font-size: 1.05rem; margin-bottom: 4px;}
+        .expense-details small { color: var(--text-muted); font-size: 0.85rem; display: block;}
+        
         .delete-btn {
             background: transparent;
-            color: #999;
-            width: auto;
-            padding: 5px 10px;
-            font-size: 1.2rem;
+            color: var(--text-muted);
+            width: 40px; height: 40px;
+            padding: 0;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
-        .delete-btn:hover { color: var(--danger); background: transparent; }
+        .delete-btn:hover { color: var(--danger); background: rgba(233,20,41,0.1); }
 
     </style>
 </head>
 <body>
 
 <header>
-    <h1>⚖️ Divisor Flexível</h1>
+    <h1>🎵 Spotyfi do Carnaval</h1>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">Divide a conta, não a folia!</p>
 </header>
 
 <div class="container">
 
-    <div class="card">
-        <h2>💰 Balanço Líquido</h2>
+    <div class="card" style="border-top: 4px solid var(--primary);">
+        <h2>💰 Saldo da Folia</h2>
         <div id="balanceList">
-            <p style="text-align:center; color:#999; padding: 10px;">Adicione pessoas e despesas.</p>
+            <p style="text-align:center; color:var(--text-muted); padding: 20px;">Cadastre os foliões para começar.</p>
         </div>
     </div>
 
     <div class="card">
-        <h2>👥 Adicionar Pessoas</h2>
+        <h2>👥 Adicionar Folião</h2>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="newPersonName" placeholder="Nome (ex: Ana)">
-            <button onclick="addPerson()" style="width: auto;">+</button>
+            <input type="text" id="newPersonName" placeholder="Nome ou apelido">
+            <button onclick="addPerson()" class="small-btn">Adicionar</button>
         </div>
-        <div id="peopleTags" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
+        <div id="peopleTags" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
             </div>
     </div>
 
     <div class="card">
-        <h2>💸 Nova Despesa</h2>
+        <h2>💸 Lançar Gastos</h2>
         
         <div class="form-group">
-            <input type="text" id="descInput" placeholder="Descrição (ex: Jantar, Uber)">
+             <label>O que foi?</label>
+            <input type="text" id="descInput" placeholder="Ex: Cerveja, Uber, Abadá...">
         </div>
         
         <div class="form-group">
-            <input type="number" id="amountInput" placeholder="Valor (R$)" step="0.01">
+            <label>Valor (R$)</label>
+            <input type="number" id="amountInput" placeholder="0.00" step="0.01">
         </div>
 
         <div class="form-group">
-            <label>Quem pagou?</label>
+            <label>Quem pagou essa rodada?</label>
             <select id="payerSelect">
-                <option value="" disabled selected>Selecione...</option>
+                <option value="" disabled selected>Selecione o pagador...</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Para quem foi? (Dividir entre:)</label>
+        <div class="form-group" style="margin-top: 25px;">
+            <label style="color: var(--primary);">Quem participou/consumiu? (Toque para marcar)</label>
             <div id="participantsContainer" class="participants-grid">
-                <p style="color:#999; font-size: 0.9rem;">Adicione pessoas primeiro...</p>
+                <p style="color:var(--text-muted); font-size: 0.9rem; padding: 10px 0;">Adicione pessoas primeiro...</p>
             </div>
-            <small style="color:#666; font-size: 0.8rem; margin-top: 5px; display:block;">Toque nos nomes para marcar/desmarcar.</small>
         </div>
 
-        <button onclick="addExpense()">Salvar Despesa</button>
+        <button onclick="addExpense()" style="margin-top: 20px;">SALVAR DESPESA</button>
     </div>
 
     <div class="card">
-        <h2>📜 Histórico</h2>
+        <h2>📜 Histórico de Gastos</h2>
         <ul id="expensesList"></ul>
-        <button class="secondary" onclick="resetApp()">Limpar Tudo</button>
+        <button class="secondary" onclick="resetApp()">Apagar tudo e reiniciar</button>
     </div>
 
 </div>
@@ -227,7 +272,7 @@
             nameInput.value = '';
             updateUI();
         } else if (people.includes(name)) {
-            alert('Nome já existe!');
+            alert('Esse folião já está na lista!');
         }
     }
 
@@ -247,7 +292,7 @@
             return;
         }
         if (involved.length === 0) {
-            alert('Selecione pelo menos uma pessoa para dividir a conta.');
+            alert('Selecione pelo menos uma pessoa que participou da despesa.');
             return;
         }
 
@@ -256,7 +301,7 @@
             desc,
             amount,
             payer,
-            involved, // Array com os nomes de quem participa da divisão
+            involved, 
             date: new Date().toLocaleDateString()
         };
 
@@ -265,15 +310,15 @@
         // Limpar form
         document.getElementById('descInput').value = '';
         document.getElementById('amountInput').value = '';
-        // Manter checkboxes marcados por conveniência ou resetar? Vamos resetar para todos marcados
-        checkAllParticipants();
+        checkAllParticipants(); // Reseta marcando todos para facilitar a próxima
 
         updateBalances();
         renderExpenses();
     }
 
     function removeExpense(id) {
-        if(confirm('Apagar despesa?')) {
+        // Usando um confirm nativo mais simples para combinar com o tema dark
+        if(confirm('Remover esta despesa do histórico?')) {
             expenses = expenses.filter(e => e.id !== id);
             updateBalances();
             renderExpenses();
@@ -285,18 +330,18 @@
         renderPayerSelect();
         renderParticipantsCheckboxes();
         renderPeopleTags();
-        updateBalances(); // Recalcula caso adicione pessoa nova
+        updateBalances(); 
     }
 
     function renderPeopleTags() {
         peopleTags.innerHTML = people.map(p => 
-            `<span style="background:#e0e0e0; padding:2px 8px; border-radius:10px; font-size:0.8rem;">${p}</span>`
+            `<span class="person-tag">${p}</span>`
         ).join('');
     }
 
     function renderPayerSelect() {
         const current = payerSelect.value;
-        payerSelect.innerHTML = '<option value="" disabled selected>Selecione...</option>';
+        payerSelect.innerHTML = '<option value="" disabled selected>Selecione o pagador...</option>';
         people.forEach(p => {
             const opt = document.createElement('option');
             opt.value = p;
@@ -309,14 +354,14 @@
     function renderParticipantsCheckboxes() {
         participantsContainer.innerHTML = '';
         if (people.length === 0) {
-            participantsContainer.innerHTML = '<p style="color:#999;">Adicione pessoas acima.</p>';
+            participantsContainer.innerHTML = '<p style="color:var(--text-muted);">Adicione foliões acima.</p>';
             return;
         }
 
         people.forEach(p => {
             const div = document.createElement('div');
             div.className = 'participant-option';
-            // Por padrão, todos vêm marcados (checked)
+            // Por padrão, todos vêm marcados
             div.innerHTML = `
                 <input type="checkbox" id="cb_${p}" value="${p}" class="participant-checkbox" checked>
                 <label for="cb_${p}">${p}</label>
@@ -331,11 +376,14 @@
 
     function renderExpenses() {
         expensesList.innerHTML = '';
+        if (expenses.length === 0) {
+             expensesList.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:10px;">Nenhuma despesa lançada.</p>';
+             return;
+        }
         expenses.slice().reverse().forEach(exp => {
             const li = document.createElement('li');
             li.className = 'expense-item';
             
-            // Texto resumo (ex: dividido entre 3 pessoas)
             const involvedText = exp.involved.length === people.length 
                 ? 'todos' 
                 : `${exp.involved.length} pessoas`;
@@ -343,19 +391,19 @@
             li.innerHTML = `
                 <div class="expense-details">
                     <strong>${exp.desc}</strong>
-                    <small>${exp.payer} pagou R$ ${exp.amount.toFixed(2)}</small>
-                    <small style="color:var(--primary)">Dividido entre: ${involvedText}</small>
+                    <small style="color: var(--primary)">${exp.payer} pagou R$ ${exp.amount.toFixed(2)}</small>
+                    <small>Dividido entre: ${involvedText}</small>
                 </div>
                 <div style="display:flex; align-items:center;">
-                    <span style="font-weight:bold; margin-right:10px;">R$ ${exp.amount.toFixed(2)}</span>
-                    <button class="delete-btn" onclick="removeExpense(${exp.id})">×</button>
+                    <span style="font-weight:bold; margin-right:15px; font-size:1.1rem;">R$ ${exp.amount.toFixed(2)}</span>
+                    <button class="delete-btn" onclick="removeExpense(${exp.id})">✕</button>
                 </div>
             `;
             expensesList.appendChild(li);
         });
     }
 
-    // --- LÓGICA DE CÁLCULO (O CORAÇÃO DO SPLITWISE) ---
+    // --- LÓGICA DE CÁLCULO ---
     function updateBalances() {
         if (people.length === 0) return;
 
@@ -365,18 +413,14 @@
         expenses.forEach(exp => {
             const payer = exp.payer;
             const amount = exp.amount;
-            const involved = exp.involved; // Array de quem participa [A, B, C]
+            const involved = exp.involved; 
             
-            // Valor por pessoa (apenas entre as envolvidas)
             const share = amount / involved.length;
 
-            // Quem pagou "recebe" o valor total de volta nos cálculos intermediários
-            // (Matematicamente: Crédito de quem pagou)
             if (people.includes(payer)) {
                 balances[payer] += amount;
             }
 
-            // Cada envolvido "deve" sua parte (Débito)
             involved.forEach(person => {
                 if (balances.hasOwnProperty(person)) {
                     balances[person] -= share;
@@ -388,32 +432,32 @@
         balanceList.innerHTML = '';
         let hasData = false;
         
-        // Filtrar e mostrar saldos
         Object.keys(balances).forEach(person => {
             const val = balances[person];
-            if (Math.abs(val) < 0.01) return; // Ignora zeros
+            if (Math.abs(val) < 0.01) return; 
             
             hasData = true;
             const div = document.createElement('div');
             div.className = 'balance-item';
             
+            // Ícones de seta para dar um charme
             if (val > 0) {
-                div.innerHTML = `<span>${person}</span> <span class="receive">recebe R$ ${val.toFixed(2)}</span>`;
+                div.innerHTML = `<span>${person}</span> <span class="receive">↗ recebe R$ ${val.toFixed(2)}</span>`;
             } else {
-                div.innerHTML = `<span>${person}</span> <span class="owe">deve R$ ${Math.abs(val).toFixed(2)}</span>`;
+                div.innerHTML = `<span>${person}</span> <span class="owe">↙ deve R$ ${Math.abs(val).toFixed(2)}</span>`;
             }
             balanceList.appendChild(div);
         });
 
         if (!hasData && people.length > 0) {
-            balanceList.innerHTML = '<p style="text-align:center; color:green;">Tudo quitado! Ninguém deve nada.</p>';
+            balanceList.innerHTML = '<p style="text-align:center; color:var(--primary); padding:20px; font-weight:bold;">Tudo quitado! Segue o baile! 🎉</p>';
         } else if (people.length === 0) {
-            balanceList.innerHTML = '<p style="text-align:center; color:#999; padding:10px;">Adicione pessoas e despesas.</p>';
+            balanceList.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cadastre os foliões para começar.</p>';
         }
     }
 
     function resetApp() {
-        if(confirm("Reiniciar tudo?")) {
+        if(confirm("Isso apagará todos os dados da folia. Tem certeza?")) {
             people = [];
             expenses = [];
             updateUI();
