@@ -3,43 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotyfi do Carnaval - Divisor de Contas</title>
+    <title>Spotyfi do Carnaval - Acerto de Contas</title>
     <style>
-        /* --- PALETA DE CORES "SPOTYFI" --- */
+        /* --- TEMA "SPOTYFI" --- */
         :root {
-            --bg-main: #121212;      /* Fundo principal preto */
-            --bg-card: #181818;      /* Fundo dos cartões (cinza muito escuro) */
-            --bg-input: #282828;     /* Fundo dos inputs */
-            --primary: #1DB954;      /* Verde Spotify Neon */
-            --text-light: #FFFFFF;   /* Texto branco */
-            --text-muted: #B3B3B3;   /* Texto cinza claro */
-            --danger: #E91429;       /* Vermelho vibrante para dívidas/apagar */
-            --border-radius: 12px;   /* Bordas arredondadas modernas */
+            --bg-main: #121212;
+            --bg-card: #181818;
+            --bg-input: #282828;
+            --primary: #1DB954;
+            --text-light: #FFFFFF;
+            --text-muted: #B3B3B3;
+            --danger: #E91429;
+            --border-radius: 12px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Circular Std', 'Segoe UI', Tahoma, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        body { 
-            background-color: var(--bg-main); 
-            color: var(--text-light); 
-            padding-bottom: 80px;
-        }
+        body { background-color: var(--bg-main); color: var(--text-light); padding-bottom: 80px;}
 
-        /* Header estilo App de Música */
         header {
             background: linear-gradient(180deg, rgba(29,185,84,0.15) 0%, var(--bg-main) 100%);
             padding: 1.5rem 1rem;
             text-align: center;
         }
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
 
         .container { max-width: 500px; margin: 0 auto; padding: 15px; }
 
-        /* Cards Modernos e Escuros */
         .card {
             background: var(--bg-card);
             border-radius: var(--border-radius);
@@ -48,420 +37,303 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        h2 { 
-            font-size: 1.1rem; 
-            margin-bottom: 15px; 
-            color: var(--text-light);
-            font-weight: 600;
-        }
+        h2 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text-light); font-weight: 600; display:flex; align-items:center; gap:10px;}
 
-        /* Inputs Estilizados */
+        /* Inputs */
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600;}
         
-        input[type="text"], input[type="number"], select {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--bg-input);
-            border: 1px solid transparent;
-            color: var(--text-light);
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: 0.3s;
+        input, select {
+            width: 100%; padding: 14px; background-color: var(--bg-input);
+            border: 1px solid transparent; color: var(--text-light);
+            border-radius: 6px; font-size: 1rem;
         }
-        input::placeholder { color: #666; }
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(29,185,84,0.2);
-        }
+        input:focus, select:focus { outline: none; border-color: var(--primary); }
 
-        /* Botões Estilo "Play" */
+        /* Botões */
         button {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 50px; /* Botão pílula */
-            background-color: var(--primary);
-            color: #000; /* Texto preto no verde para contraste */
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: transform 0.2s, filter 0.2s;
-        }
-        button:hover { filter: brightness(1.1); transform: scale(1.02); }
-        button:active { transform: scale(0.98); }
-        
-        button.secondary { 
-            background-color: transparent; 
-            border: 1px solid var(--text-muted); 
-            color: var(--text-light);
-            margin-top: 10px;
-        }
-        button.small-btn {
-            width: auto;
-            padding: 14px 20px;
-            border-radius: 6px;
-        }
-
-        /* Participantes Checkboxes (Tags estilo playlist) */
-        .participants-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 5px;
-        }
-
-        .participant-option { position: relative; }
-        .participant-option input { position: absolute; opacity: 0; cursor: pointer; }
-
-        .participant-option label {
-            display: block;
-            background: var(--bg-input);
-            color: var(--text-muted);
-            padding: 10px 16px;
-            text-align: center;
-            border-radius: 50px;
-            cursor: pointer;
-            border: 1px solid #333;
-            font-weight: 500;
-            font-size: 0.9rem;
+            width: 100%; padding: 16px; border: none; border-radius: 50px;
+            background-color: var(--primary); color: #000;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer;
             transition: 0.2s;
         }
+        button:hover { transform: scale(1.02); filter: brightness(1.1); }
+        button.secondary { background: transparent; border: 1px solid #555; color: #fff; margin-top: 10px; }
+        button.small-btn { width: auto; padding: 14px 20px; border-radius: 6px; }
 
-        /* Estilo quando selecionado */
+        /* Checkboxes e Tags */
+        .participants-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px; }
+        .participant-option input { display: none; }
+        .participant-option label {
+            display: block; background: var(--bg-input); color: var(--text-muted);
+            padding: 10px 16px; border-radius: 50px; cursor: pointer; border: 1px solid #333;
+        }
         .participant-option input:checked + label {
-            background-color: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            font-weight: bold;
+            background-color: var(--primary); color: #000; border-color: var(--primary); font-weight: bold;
         }
-        
-        /* Tags de pessoas adicionadas */
-        .person-tag {
-            background: #333;
-            color: var(--text-light);
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            display: inline-block;
-        }
+        .person-tag { background: #333; padding: 5px 12px; border-radius: 50px; font-size: 0.85rem; }
 
-        /* Balances */
-        .balance-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #333;
-            font-size: 1.1rem;
-        }
-        .owe { color: var(--danger); }
-        .receive { color: var(--primary); font-weight: bold; }
-
-        /* Lista de Despesas */
-        ul { list-style: none; }
-        .expense-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Estilo do Plano de Pagamento (NOVO) */
+        .payment-plan-item {
+            background: #2a2a2a;
             padding: 15px;
-            background: var(--bg-input);
-            margin-bottom: 10px;
             border-radius: 8px;
-            border-left: 4px solid var(--primary); /* Detalhe verde lateral */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
         }
-        .expense-details strong { display: block; font-size: 1.05rem; margin-bottom: 4px;}
-        .expense-details small { color: var(--text-muted); font-size: 0.85rem; display: block;}
-        
-        .delete-btn {
-            background: transparent;
-            color: var(--text-muted);
-            width: 40px; height: 40px;
-            padding: 0;
-            font-size: 1.5rem;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .delete-btn:hover { color: var(--danger); background: rgba(233,20,41,0.1); }
+        .pay-arrow { color: var(--text-muted); margin: 0 10px; font-size: 1.2rem; }
+        .pay-amount { color: var(--primary); font-weight: bold; font-size: 1.1rem; }
 
+        /* Histórico */
+        .expense-item {
+            display: flex; justify-content: space-between; padding: 15px;
+            background: var(--bg-input); margin-bottom: 10px; border-radius: 8px;
+        }
+        .delete-btn { width: 30px; height: 30px; padding: 0; background: transparent; color: #666; font-size: 1.2rem;}
     </style>
 </head>
 <body>
 
 <header>
     <h1>🎵 Spotyfi do Carnaval</h1>
-    <p style="color: var(--text-muted); font-size: 0.9rem;">Divide a conta, não a folia!</p>
 </header>
 
 <div class="container">
 
-    <div class="card" style="border-top: 4px solid var(--primary);">
-        <h2>💰 Saldo da Folia</h2>
-        <div id="balanceList">
-            <p style="text-align:center; color:var(--text-muted); padding: 20px;">Cadastre os foliões para começar.</p>
+    <div class="card" style="border: 1px solid var(--primary);">
+        <h2>✅ Como acertas as contas:</h2>
+        <div id="paymentPlanList">
+            <p style="text-align:center; color:var(--text-muted); padding: 10px;">Lance os gastos para gerar o plano.</p>
         </div>
     </div>
 
     <div class="card">
-        <h2>👥 Adicionar Folião</h2>
+        <h2>📊 Saldo Líquido (Resumo)</h2>
+        <div id="balanceList"></div>
+    </div>
+
+    <div class="card">
+        <h2>👥 Novo Folião</h2>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="newPersonName" placeholder="Nome ou apelido">
-            <button onclick="addPerson()" class="small-btn">Adicionar</button>
+            <input type="text" id="newPersonName" placeholder="Nome">
+            <button onclick="addPerson()" class="small-btn">+</button>
         </div>
-        <div id="peopleTags" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
-            </div>
+        <div id="peopleTags" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
     </div>
 
     <div class="card">
-        <h2>💸 Lançar Gastos</h2>
-        
+        <h2>💸 Lançar Gasto</h2>
         <div class="form-group">
-             <label>O que foi?</label>
-            <input type="text" id="descInput" placeholder="Ex: Cerveja, Uber, Abadá...">
+            <input type="text" id="descInput" placeholder="Descrição (ex: Uber, Cerveja)">
         </div>
-        
         <div class="form-group">
-            <label>Valor (R$)</label>
-            <input type="number" id="amountInput" placeholder="0.00" step="0.01">
+            <input type="number" id="amountInput" placeholder="Valor (R$)" step="0.01">
         </div>
-
         <div class="form-group">
-            <label>Quem pagou essa rodada?</label>
-            <select id="payerSelect">
-                <option value="" disabled selected>Selecione o pagador...</option>
-            </select>
+            <label>Quem pagou?</label>
+            <select id="payerSelect"><option value="" disabled selected>Selecione...</option></select>
         </div>
-
-        <div class="form-group" style="margin-top: 25px;">
-            <label style="color: var(--primary);">Quem participou/consumiu? (Toque para marcar)</label>
-            <div id="participantsContainer" class="participants-grid">
-                <p style="color:var(--text-muted); font-size: 0.9rem; padding: 10px 0;">Adicione pessoas primeiro...</p>
-            </div>
+        <div class="form-group">
+            <label style="color: var(--primary);">Para quem foi? (Marque os envolvidos)</label>
+            <div id="participantsContainer" class="participants-grid"></div>
         </div>
-
-        <button onclick="addExpense()" style="margin-top: 20px;">SALVAR DESPESA</button>
+        <button onclick="addExpense()">SALVAR</button>
     </div>
 
     <div class="card">
-        <h2>📜 Histórico de Gastos</h2>
+        <h2>📜 Histórico</h2>
         <ul id="expensesList"></ul>
-        <button class="secondary" onclick="resetApp()">Apagar tudo e reiniciar</button>
+        <button class="secondary" onclick="resetApp()">Reiniciar Tudo</button>
     </div>
-
 </div>
 
 <script>
-    // --- Estado ---
     let people = [];
     let expenses = [];
 
-    // --- DOM Elements ---
+    // --- Elementos ---
     const payerSelect = document.getElementById('payerSelect');
     const participantsContainer = document.getElementById('participantsContainer');
     const expensesList = document.getElementById('expensesList');
     const balanceList = document.getElementById('balanceList');
+    const paymentPlanList = document.getElementById('paymentPlanList');
     const peopleTags = document.getElementById('peopleTags');
 
-    // --- Adicionar Pessoa ---
+    // --- Funções Básicas ---
     function addPerson() {
-        const nameInput = document.getElementById('newPersonName');
-        const name = nameInput.value.trim();
-
+        const name = document.getElementById('newPersonName').value.trim();
         if (name && !people.includes(name)) {
             people.push(name);
-            nameInput.value = '';
+            document.getElementById('newPersonName').value = '';
             updateUI();
-        } else if (people.includes(name)) {
-            alert('Esse folião já está na lista!');
-        }
+        } else if (people.includes(name)) alert('Já existe!');
     }
 
-    // --- Adicionar Despesa ---
     function addExpense() {
         const desc = document.getElementById('descInput').value.trim();
         const amount = parseFloat(document.getElementById('amountInput').value);
         const payer = payerSelect.value;
-        
-        // Pegar quem foi marcado nos checkboxes
         const checkboxes = document.querySelectorAll('.participant-checkbox:checked');
         const involved = Array.from(checkboxes).map(cb => cb.value);
 
-        // Validações
-        if (!desc || isNaN(amount) || amount <= 0 || !payer) {
-            alert('Preencha descrição, valor e quem pagou.');
-            return;
-        }
-        if (involved.length === 0) {
-            alert('Selecione pelo menos uma pessoa que participou da despesa.');
+        if (!desc || isNaN(amount) || amount <= 0 || !payer || involved.length === 0) {
+            alert('Preencha todos os dados corretamente.');
             return;
         }
 
-        const expense = {
-            id: Date.now(),
-            desc,
-            amount,
-            payer,
-            involved, 
-            date: new Date().toLocaleDateString()
-        };
-
-        expenses.push(expense);
+        expenses.push({ id: Date.now(), desc, amount, payer, involved });
         
-        // Limpar form
         document.getElementById('descInput').value = '';
         document.getElementById('amountInput').value = '';
-        checkAllParticipants(); // Reseta marcando todos para facilitar a próxima
-
-        updateBalances();
-        renderExpenses();
+        updateUI();
     }
 
     function removeExpense(id) {
-        // Usando um confirm nativo mais simples para combinar com o tema dark
-        if(confirm('Remover esta despesa do histórico?')) {
+        if(confirm('Apagar despesa?')) {
             expenses = expenses.filter(e => e.id !== id);
-            updateBalances();
-            renderExpenses();
+            updateUI();
         }
     }
 
-    // --- Renderização da Interface ---
+    // --- Atualização Visual ---
     function updateUI() {
-        renderPayerSelect();
-        renderParticipantsCheckboxes();
-        renderPeopleTags();
-        updateBalances(); 
+        renderPeopleRelated();
+        renderExpenses();
+        calculateAndRenderBalances();
     }
 
-    function renderPeopleTags() {
-        peopleTags.innerHTML = people.map(p => 
-            `<span class="person-tag">${p}</span>`
-        ).join('');
-    }
-
-    function renderPayerSelect() {
-        const current = payerSelect.value;
-        payerSelect.innerHTML = '<option value="" disabled selected>Selecione o pagador...</option>';
+    function renderPeopleRelated() {
+        // Tags
+        peopleTags.innerHTML = people.map(p => `<span class="person-tag">${p}</span>`).join('');
+        
+        // Select
+        const currentPayer = payerSelect.value;
+        payerSelect.innerHTML = '<option value="" disabled selected>Selecione...</option>';
         people.forEach(p => {
             const opt = document.createElement('option');
-            opt.value = p;
-            opt.textContent = p;
+            opt.value = p; opt.textContent = p;
             payerSelect.appendChild(opt);
         });
-        if(people.includes(current)) payerSelect.value = current;
-    }
+        if(people.includes(currentPayer)) payerSelect.value = currentPayer;
 
-    function renderParticipantsCheckboxes() {
-        participantsContainer.innerHTML = '';
-        if (people.length === 0) {
-            participantsContainer.innerHTML = '<p style="color:var(--text-muted);">Adicione foliões acima.</p>';
-            return;
+        // Checkboxes (só recria se mudou numero de pessoas para não perder seleção atual durante uso)
+        if(participantsContainer.children.length !== people.length && people.length > 0) {
+            participantsContainer.innerHTML = '';
+            people.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'participant-option';
+                div.innerHTML = `<input type="checkbox" id="cb_${p}" value="${p}" class="participant-checkbox" checked><label for="cb_${p}">${p}</label>`;
+                participantsContainer.appendChild(div);
+            });
         }
-
-        people.forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'participant-option';
-            // Por padrão, todos vêm marcados
-            div.innerHTML = `
-                <input type="checkbox" id="cb_${p}" value="${p}" class="participant-checkbox" checked>
-                <label for="cb_${p}">${p}</label>
-            `;
-            participantsContainer.appendChild(div);
-        });
-    }
-    
-    function checkAllParticipants() {
-        document.querySelectorAll('.participant-checkbox').forEach(cb => cb.checked = true);
     }
 
     function renderExpenses() {
         expensesList.innerHTML = '';
-        if (expenses.length === 0) {
-             expensesList.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:10px;">Nenhuma despesa lançada.</p>';
-             return;
-        }
         expenses.slice().reverse().forEach(exp => {
             const li = document.createElement('li');
             li.className = 'expense-item';
-            
-            const involvedText = exp.involved.length === people.length 
-                ? 'todos' 
-                : `${exp.involved.length} pessoas`;
-
             li.innerHTML = `
-                <div class="expense-details">
+                <div>
                     <strong>${exp.desc}</strong>
-                    <small style="color: var(--primary)">${exp.payer} pagou R$ ${exp.amount.toFixed(2)}</small>
-                    <small>Dividido entre: ${involvedText}</small>
+                    <small style="color:#888">${exp.payer} pagou R$ ${exp.amount.toFixed(2)}</small>
                 </div>
-                <div style="display:flex; align-items:center;">
-                    <span style="font-weight:bold; margin-right:15px; font-size:1.1rem;">R$ ${exp.amount.toFixed(2)}</span>
+                <div style="display:flex; align-items:center; gap:10px">
+                    <span style="color:var(--primary)">R$ ${exp.amount.toFixed(2)}</span>
                     <button class="delete-btn" onclick="removeExpense(${exp.id})">✕</button>
-                </div>
-            `;
+                </div>`;
             expensesList.appendChild(li);
         });
     }
 
-    // --- LÓGICA DE CÁLCULO ---
-    function updateBalances() {
+    // --- O CORAÇÃO DO CÁLCULO (QUEM PAGA QUEM) ---
+    function calculateAndRenderBalances() {
         if (people.length === 0) return;
 
+        // 1. Calcular Saldo Líquido
         let balances = {};
         people.forEach(p => balances[p] = 0);
 
         expenses.forEach(exp => {
-            const payer = exp.payer;
-            const amount = exp.amount;
-            const involved = exp.involved; 
-            
-            const share = amount / involved.length;
-
-            if (people.includes(payer)) {
-                balances[payer] += amount;
-            }
-
-            involved.forEach(person => {
-                if (balances.hasOwnProperty(person)) {
-                    balances[person] -= share;
-                }
-            });
+            const share = exp.amount / exp.involved.length;
+            if (people.includes(exp.payer)) balances[exp.payer] += exp.amount;
+            exp.involved.forEach(p => { if (balances.hasOwnProperty(p)) balances[p] -= share; });
         });
 
-        // Renderizar
+        // 2. Renderizar Resumo (Saldo Líquido)
         balanceList.innerHTML = '';
-        let hasData = false;
-        
-        Object.keys(balances).forEach(person => {
-            const val = balances[person];
-            if (Math.abs(val) < 0.01) return; 
-            
-            hasData = true;
-            const div = document.createElement('div');
-            div.className = 'balance-item';
-            
-            // Ícones de seta para dar um charme
-            if (val > 0) {
-                div.innerHTML = `<span>${person}</span> <span class="receive">↗ recebe R$ ${val.toFixed(2)}</span>`;
-            } else {
-                div.innerHTML = `<span>${person}</span> <span class="owe">↙ deve R$ ${Math.abs(val).toFixed(2)}</span>`;
-            }
-            balanceList.appendChild(div);
+        Object.keys(balances).forEach(p => {
+            if(Math.abs(balances[p]) < 0.01) return;
+            const color = balances[p] > 0 ? 'var(--primary)' : 'var(--danger)';
+            const text = balances[p] > 0 ? 'recebe' : 'deve';
+            balanceList.innerHTML += `<div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #333;">
+                <span>${p}</span><span style="color:${color}">${text} R$ ${Math.abs(balances[p]).toFixed(2)}</span>
+            </div>`;
         });
 
-        if (!hasData && people.length > 0) {
-            balanceList.innerHTML = '<p style="text-align:center; color:var(--primary); padding:20px; font-weight:bold;">Tudo quitado! Segue o baile! 🎉</p>';
-        } else if (people.length === 0) {
-            balanceList.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding: 20px;">Cadastre os foliões para começar.</p>';
+        // 3. ALGORITMO DE OTIMIZAÇÃO DE PAGAMENTOS
+        // Separa quem deve (devedores) de quem tem a receber (credores)
+        let debtors = [];
+        let creditors = [];
+
+        for (const [person, amount] of Object.entries(balances)) {
+            if (amount < -0.01) debtors.push({ name: person, amount: Math.abs(amount) });
+            if (amount > 0.01) creditors.push({ name: person, amount: amount });
+        }
+
+        // Ordena para facilitar (opcional, mas ajuda na visualização)
+        debtors.sort((a, b) => b.amount - a.amount);
+        creditors.sort((a, b) => b.amount - a.amount);
+
+        paymentPlanList.innerHTML = '';
+        let hasPayments = false;
+
+        // Cruzamento de dados
+        let i = 0; // Índice devedores
+        let j = 0; // Índice credores
+
+        while (i < debtors.length && j < creditors.length) {
+            hasPayments = true;
+            let debtor = debtors[i];
+            let creditor = creditors[j];
+
+            // O valor a ser pago é o mínimo entre o que um deve e o outro tem a receber
+            let amountToPay = Math.min(debtor.amount, creditor.amount);
+
+            // Gera o HTML da instrução
+            const div = document.createElement('div');
+            div.className = 'payment-plan-item';
+            div.innerHTML = `
+                <div style="display:flex; align-items:center; width:100%;">
+                    <span style="color:var(--danger)">${debtor.name}</span>
+                    <span class="pay-arrow">➔</span>
+                    <span style="color:var(--primary)">${creditor.name}</span>
+                </div>
+                <div class="pay-amount">R$ ${amountToPay.toFixed(2)}</div>
+            `;
+            paymentPlanList.appendChild(div);
+
+            // Atualiza os valores restantes
+            debtor.amount -= amountToPay;
+            creditor.amount -= amountToPay;
+
+            // Se zerou a dívida, passa para o próximo devedor
+            if (debtor.amount < 0.01) i++;
+            // Se zerou o crédito, passa para o próximo credor
+            if (creditor.amount < 0.01) j++;
+        }
+
+        if (!hasPayments) {
+            paymentPlanList.innerHTML = '<p style="text-align:center; color:var(--primary);">Ninguém deve nada!</p>';
         }
     }
 
     function resetApp() {
-        if(confirm("Isso apagará todos os dados da folia. Tem certeza?")) {
-            people = [];
-            expenses = [];
-            updateUI();
-            renderExpenses();
+        if(confirm("Reiniciar tudo?")) {
+            people = []; expenses = []; updateUI();
         }
     }
 </script>
