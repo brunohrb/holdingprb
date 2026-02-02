@@ -1,407 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRB Holding - Portal</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>Treino Infantil – 11 anos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Playfair Display', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #0f172a 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+      color: #0f172a;
+    }
 
-        /* Animated background elements */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
+    header {
+      background: #38bdf8;
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
 
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
 
-        .blob1 {
-            width: 300px;
-            height: 300px;
-            background: rgba(212, 175, 55, 0.3);
-            top: -50px;
-            right: -50px;
-            animation-delay: 0s;
-        }
+    header p {
+      margin-top: 8px;
+      font-size: 14px;
+    }
 
-        .blob2 {
-            width: 250px;
-            height: 250px;
-            background: rgba(59, 130, 246, 0.2);
-            bottom: -50px;
-            left: -50px;
-            animation-delay: 2s;
-        }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 24px;
+    }
 
-        .blob3 {
-            width: 200px;
-            height: 200px;
-            background: rgba(212, 175, 55, 0.2);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 4s;
-        }
+    .info {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(30px, -30px);
-            }
-            50% {
-                transform: translate(-20px, 20px);
-            }
-            75% {
-                transform: translate(20px, 30px);
-            }
-        }
+    .info ul {
+      padding-left: 20px;
+    }
 
-        /* Main container */
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 900px;
-            width: 90%;
-            animation: fadeInDown 0.8s ease-out;
-        }
+    .treino {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+    }
 
-        /* Header */
-        .header {
-            margin-bottom: 60px;
-        }
+    .card h3 {
+      margin-top: 0;
+      color: #0284c7;
+    }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+    .exercicio {
+      margin-bottom: 12px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      font-size: 14px;
+    }
 
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 28px;
-            color: #1e40af;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            animation: pulse 2s ease-in-out infinite;
-        }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #475569;
+    }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-            }
-        }
-
-        .logo-text h1 {
-            font-size: 36px;
-            color: #ffffff;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
-        }
-
-        .logo-text p {
-            font-size: 14px;
-            color: #93c5fd;
-            margin: 5px 0 0 0;
-            font-weight: 500;
-        }
-
-        /* Title */
-        h2 {
-            font-size: 56px;
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.2;
-            animation: slideInUp 0.8s ease-out 0.2s both;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #bfdbfe;
-            margin-bottom: 60px;
-            font-weight: 400;
-            animation: slideInUp 0.8s ease-out 0.4s both;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Buttons container */
-        .buttons-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 50px;
-        }
-        /* PADRONIZA ALTURA DOS CARDS */
-
-        /* ALTURA PADRÃO SÓ PARA CARDS DE IMÓVEIS */
-.card-imovel {
-    height: 180px;
-    justify-content: center;
-}
-
-
-        .btn {
-            padding: 20px 30px;
-            border: none;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            animation: slideInUp 0.8s ease-out 0.6s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e40af, #1e3a8a);
-            color: #ffffff;
-            border: 2px solid #3b82f6;
-            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(30, 64, 175, 0.5);
-            border-color: #d4af37;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #1e3a8a, #0f172a);
-            color: #ffffff;
-            border: 2px solid #d4af37;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #d4af37, #f4d03f);
-            color: #1e40af;
-            border-color: #ffffff;
-        }
-
-        .btn-icon {
-            font-size: 32px;
-        }
-
-        .btn-label {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .btn-sublabel {
-            font-size: 12px;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 40px;
-                .card-imovel {
-    height: 150px;
-}
-
-            .buttons-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .btn {
-                padding: 18px 24px;
-                font-size: 16px;
-            }
-
-            .logo-text h1 {
-                font-size: 28px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-            /* AJUSTE FINO SÓ DA TELA GERENCIADORA */
-.tela-gerenciadora h2 {
-    font-size: 30px;
-}
-
-.tela-gerenciadora .subtitle {
-    font-size: 14px;
-    margin-bottom: 30px;
-}
-
-        }
-    </style>
+    .emoji {
+      font-size: 20px;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Animated background -->
-    <div class="bg-animation">
-        <div class="blob blob1"></div>
-        <div class="blob blob2"></div>
-        <div class="blob blob3"></div>
+
+<header>
+  <h1>🏃‍♀️ Treino Infantil – 11 anos</h1>
+  <p>Plano seguro, divertido e feito especialmente para crianças</p>
+</header>
+
+<main>
+
+  <section class="info">
+    <h2>📋 Informações Gerais</h2>
+    <ul>
+      <li>👧 Idade: 11 anos</li>
+      <li>⚖️ Peso: 26 kg</li>
+      <li>🏋️‍♀️ Experiência: Nunca treinou</li>
+      <li>📆 Frequência: 3x por semana</li>
+      <li>⏱️ Duração: 20 a 30 minutos</li>
+      <li>🚫 Sem pesos ou aparelhos</li>
+    </ul>
+  </section>
+
+  <section class="treino">
+
+    <!-- DIA 1 -->
+    <div class="card">
+      <h3>🟦 Dia 1 – Corpo Inteiro</h3>
+
+      <div class="exercicio">🤸‍♀️ Aquecimento: Pular como sapinho – 2 min</div>
+      <div class="exercicio">🪑 Agachar e sentar na cadeira – 2x10</div>
+      <div class="exercicio">🧍‍♀️ Ficar na ponta dos pés – 3x15s</div>
+      <div class="exercicio">🦵 Elevar joelhos parado – 2x20</div>
+      <div class="exercicio">🧘‍♀️ Alongamento leve – 5 min</div>
     </div>
 
-    <!-- Main content -->
-<div class="container" id="tela-home">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">PRB</div>
-                <div class="logo-text">
-                    <h1>PRB Holding</h1>
-                    <p>Sistema Integrado</p>
-                </div>
-            </div>
-        </div>
+    <!-- DIA 2 -->
+    <div class="card">
+      <h3>🟩 Dia 2 – Coordenação e Postura</h3>
 
-        <!-- Title -->
-        <h2>Bem-vindo a Holding PRB</h2>
-        <p class="subtitle">Escolha sua Bandeira para continuar</p>
-
-        <!-- Buttons -->
-        <div class="buttons-container">
-            <!-- Button 1: Bandeira Gerenciadora de Imóveis -->
-            <a href="javascript:void(0)" onclick="abrirGerenciadora()" class="btn btn-primary">
-
-                <span class="btn-icon">🏢</span>
-                <span class="btn-label">Gerenciadora</span>
-                <span class="btn-sublabel">de Imóveis</span>
-            </a>
-
-            <!-- Button 2: Bandeira Empresarial -->
-            <a href="https://brunohrb.github.io/prb/" class="btn btn-secondary">
-
-                <span class="btn-icon">💼</span>
-                <span class="btn-label">Empresarial</span>
-                <span class="btn-sublabel">Pró-Labore</span>
-            </a>
-        </div>
+      <div class="exercicio">🚶‍♀️ Caminhar em linha reta – 3 min</div>
+      <div class="exercicio">🧍‍♀️ Equilíbrio em um pé só – 3x15s cada</div>
+      <div class="exercicio">🙆‍♀️ Braços abrindo e fechando – 2x15</div>
+      <div class="exercicio">🐢 Prancha de joelhos – 3x10s</div>
+      <div class="exercicio">🧘‍♀️ Respiração e alongamento – 5 min</div>
     </div>
 
-<!-- TELA GERENCIADORA -->
-<div id="submenu-gerenciadora" class="container" style="display:none;">
-    <div class="buttons-container">
+    <!-- DIA 3 -->
+    <div class="card">
+      <h3>🟨 Dia 3 – Força Leve e Diversão</h3>
 
-<a href="https://brunohrb.github.io/bandeiraimoveis" class="btn btn-primary card-imovel">
-            <span class="btn-icon">🏠</span>
-            <span class="btn-label">Imóveis Mensal</span>
-            <span class="btn-sublabel">Contratos recorrentes</span>
-        </a>
-
-<a href="https://brunohrb.github.io/bandeirabeachhouse" class="btn btn-secondary card-imovel">
-            <span class="btn-icon">🌴</span>
-            <span class="btn-label">Imóveis por Temporada</span>
-            <span class="btn-sublabel">Airbnb · Booking</span>
-        </a>
-
-        <div class="btn btn-secondary" onclick="voltarGerenciadora()" style="grid-column: span 2;">
-            ← Voltar
-        </div>
-
+      <div class="exercicio">🎈 Pular corda imaginária – 2 min</div>
+      <div class="exercicio">🐻 Caminhar como ursinho – 3x20s</div>
+      <div class="exercicio">🪜 Subir e descer degrau baixo – 2x10</div>
+      <div class="exercicio">🙋‍♀️ Flexão na parede – 2x10</div>
+      <div class="exercicio">🧘‍♀️ Relaxamento final – 5 min</div>
     </div>
-</div>
 
-    <script>
-        // Smooth scroll on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Portal PRB carregado com sucesso!');
-        });
+  </section>
 
-function abrirGerenciadora() {
-    document.getElementById('tela-home').style.display = 'none';
-    document.getElementById('submenu-gerenciadora').style.display = 'block';
-}
+</main>
 
-   function voltarGerenciadora() {
-    document.getElementById('submenu-gerenciadora').style.display = 'none';
-    document.getElementById('tela-home').style.display = 'block';
-}
-    </script>
+<footer>
+  ⚠️ Este treino é educativo e recreativo. Sempre com supervisão de um adulto ou profissional.
+</footer>
+
 </body>
 </html>
