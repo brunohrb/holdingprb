@@ -84,15 +84,398 @@
     .emoji {
       font-size: 20px;
     }
+
+    /* Botão Organograma */
+    .btn-organograma {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      color: #0284c7;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-organograma:hover {
+      background: #e0f2fe;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      width: 95%;
+      max-width: 1100px;
+      max-height: 90vh;
+      overflow: auto;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .modal-close:hover {
+      background: #dc2626;
+    }
+    .modal-title {
+      text-align: center;
+      margin: 0 0 24px 0;
+      color: #0f172a;
+      font-size: 22px;
+    }
+
+    /* Organograma */
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-size: 13px;
+      min-width: 900px;
+    }
+    .org-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+    }
+    .org-node {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid #999;
+      text-align: center;
+      white-space: nowrap;
+      font-weight: 500;
+      background: white;
+      position: relative;
+      z-index: 2;
+    }
+    .org-node.holding {
+      background: #b3d4fc;
+      border-color: #5b9bd5;
+      font-weight: bold;
+    }
+    .org-node.sub {
+      background: #ffe0b2;
+      border-color: #c49a6c;
+    }
+    .org-node.pf {
+      background: #fff3cd;
+      border-color: #c9a84c;
+      font-size: 12px;
+    }
+    .org-node.mutuo-node {
+      background: #fff;
+      border-color: #999;
+      font-size: 12px;
+    }
+    .org-node.bandeira {
+      background: #c8e6c9;
+      border-color: #66bb6a;
+      font-weight: bold;
+    }
+    .org-node.source {
+      background: #f5f5f5;
+      border-color: #aaa;
+    }
+
+    .org-connector {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      height: 32px;
+      position: relative;
+    }
+    .org-connector .vline {
+      width: 2px;
+      height: 100%;
+      background: #888;
+    }
+
+    /* SVG lines */
+    .org-svg-container {
+      position: relative;
+      width: 100%;
+    }
+    .org-svg-container svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Organograma via flex layout */
+    .org-wrapper {
+      overflow-x: auto;
+      padding: 16px;
+    }
+    .org-level {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .org-arrow {
+      text-align: center;
+      color: #888;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .org-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .org-children {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+    .org-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      min-width: 120px;
+    }
+    .org-sub-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .org-sub-children {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .label-mutuo {
+      font-size: 11px;
+      color: #666;
+      font-style: italic;
+    }
+    .label-fluxo {
+      font-size: 11px;
+      color: #888;
+      font-style: italic;
+      margin-top: 2px;
+    }
+    .line-down {
+      width: 2px;
+      height: 20px;
+      background: #888;
+      margin: 0 auto;
+    }
+    .line-down-long {
+      width: 2px;
+      height: 36px;
+      background: #888;
+      margin: 0 auto;
+    }
+    .hline-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 2px;
+      width: 100%;
+    }
+    .hline {
+      height: 2px;
+      background: #888;
+      flex: 1;
+    }
+    .org-three-cols {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+    .org-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .org-col-children {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .org-col-child {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .org-bandeira-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .fluxo-lines {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 4px;
+    }
+    .fluxo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
   </style>
 </head>
 
 <body>
 
-<header>
+<header style="position: relative;">
   <h1>🏃‍♀️ Treino Infantil – 11 anos</h1>
   <p>Plano seguro, divertido e feito especialmente para crianças</p>
+  <button class="btn-organograma" onclick="document.getElementById('modalOrganograma').classList.add('active')">Organograma</button>
 </header>
+
+<!-- Modal Organograma -->
+<div id="modalOrganograma" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="document.getElementById('modalOrganograma').classList.remove('active')">✕</button>
+    <h2 class="modal-title">Organograma Societário</h2>
+    <div class="org-wrapper">
+      <div class="org-level">
+
+        <!-- Nível 1: Fontes (PRB Telecom, Steed, MG, P3) -->
+        <div class="org-row" style="gap: 24px;">
+          <div class="org-node source">PRB Telecom</div>
+          <div class="org-node source">Steed</div>
+          <div class="org-node source">MG</div>
+          <div class="org-node source">P3</div>
+        </div>
+
+        <div class="line-down"></div>
+
+        <!-- Nível 2: Holding Central -->
+        <div class="org-node holding">PBR PART<br><small>(Holding Central)</small></div>
+
+        <div class="line-down"></div>
+
+        <!-- Linhas horizontais para 3 filiais -->
+        <div style="display:flex; align-items:flex-start; justify-content:center; width:100%;">
+          <div style="flex:1; height:2px; background:#888; margin-top:0;"></div>
+        </div>
+
+        <!-- Nível 3: Três empresas -->
+        <div class="org-three-cols">
+
+          <!-- DARK -->
+          <div class="org-col">
+            <div class="org-node sub">DARK</div>
+            <div class="line-down"></div>
+            <div class="org-col-children">
+              <div class="org-col-child">
+                <div class="org-node pf">Paulo<br><small>(PF até 50k)</small></div>
+              </div>
+              <div class="org-col-child">
+                <div class="org-node pf">Taty<br><small>(PF até 50k)</small></div>
+              </div>
+              <div class="org-col-child">
+                <div class="label-mutuo">MÚTUO</div>
+                <div class="line-down" style="height:10px;"></div>
+                <div class="org-node mutuo-node">PTCL</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AMERICA -->
+          <div class="org-col">
+            <div class="org-node sub">AMERICA</div>
+            <div class="line-down"></div>
+            <div class="org-col-children">
+              <div class="org-col-child">
+                <div class="org-node pf">Rafael<br><small>(PF até 50k)</small></div>
+                <div class="label-fluxo">Fluxo Financeiro</div>
+                <div class="line-down" style="height:10px;"></div>
+              </div>
+              <div class="org-col-child">
+                <div class="label-mutuo">MÚTUO</div>
+                <div class="line-down" style="height:10px;"></div>
+                <div class="org-node mutuo-node">RRB</div>
+                <div class="label-fluxo">Fluxo Financeiro</div>
+                <div class="line-down" style="height:10px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BRUNO HBR -->
+          <div class="org-col">
+            <div class="org-node sub">BRUNO HBR</div>
+            <div class="line-down"></div>
+            <div class="org-col-children">
+              <div class="org-col-child">
+                <div class="org-node pf">Bruno<br><small>(PF até 50k)</small></div>
+              </div>
+              <div class="org-col-child">
+                <div class="org-node pf">Ellen<br><small>(PF até 50k)</small></div>
+                <div class="label-fluxo">Fluxo Financeiro</div>
+                <div class="line-down" style="height:10px;"></div>
+              </div>
+              <div class="org-col-child">
+                <div class="label-mutuo">MÚTUO</div>
+                <div class="line-down" style="height:10px;"></div>
+                <div class="org-node mutuo-node">BHR</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Nível 4: BANDEIRA -->
+        <div class="line-down-long"></div>
+        <div class="org-node bandeira">BANDEIRA<br><small>(Destino Final do Fluxo Financeiro)</small></div>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <main>
 
