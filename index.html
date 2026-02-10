@@ -1,538 +1,700 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Treino Infantil – 11 anossss</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRB Holding - Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
-      color: #0f172a;
-    }
+        body {
+            font-family: 'Playfair Display', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #0f172a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-    header {
-      background: #38bdf8;
-      color: white;
-      padding: 24px;
-      text-align: center;
-    }
+        /* Animated background elements */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 26px;
-    }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
 
-    header p {
-      margin-top: 8px;
-      font-size: 14px;
-    }
+        .blob1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(212, 175, 55, 0.3);
+            top: -50px;
+            right: -50px;
+            animation-delay: 0s;
+        }
 
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 24px;
-    }
+        .blob2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(59, 130, 246, 0.2);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: 2s;
+        }
 
-    .info {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
+        .blob3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(212, 175, 55, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
 
-    .info ul {
-      padding-left: 20px;
-    }
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(30px, -30px);
+            }
+            50% {
+                transform: translate(-20px, 20px);
+            }
+            75% {
+                transform: translate(20px, 30px);
+            }
+        }
 
-    .treino {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            animation: fadeInDown 0.8s ease-out;
+        }
 
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.06);
-    }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .card h3 {
-      margin-top: 0;
-      color: #0284c7;
-    }
+        /* Header */
+        .header {
+            margin-bottom: 60px;
+        }
 
-    .exercicio {
-      margin-bottom: 12px;
-      padding: 10px;
-      background: #f1f5f9;
-      border-radius: 10px;
-      font-size: 14px;
-    }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: #475569;
-    }
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 28px;
+            color: #1e40af;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
 
-    .emoji {
-      font-size: 20px;
-    }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+            }
+        }
 
-    /* Botão Organograma */
-    .btn-organograma {
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      color: #0284c7;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: background 0.2s, transform 0.1s;
-    }
-    .btn-organograma:hover {
-      background: #e0f2fe;
-      transform: translateY(-50%) scale(1.05);
-    }
+        .logo-text h1 {
+            font-size: 36px;
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0;
+        }
 
-    /* Modal Overlay */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal-content {
-      background: #fff;
-      border-radius: 16px;
-      width: 95%;
-      max-width: 1100px;
-      max-height: 90vh;
-      overflow: auto;
-      padding: 32px;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: #ef4444;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
-    .modal-close:hover {
-      background: #dc2626;
-    }
-    .modal-title {
-      text-align: center;
-      margin: 0 0 24px 0;
-      color: #0f172a;
-      font-size: 22px;
-    }
+        .logo-text p {
+            font-size: 14px;
+            color: #93c5fd;
+            margin: 5px 0 0 0;
+            font-weight: 500;
+        }
 
-    /* Organograma */
-    .org-chart {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      font-size: 13px;
-      min-width: 900px;
-    }
-    .org-row {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      position: relative;
-    }
-    .org-node {
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 2px solid #999;
-      text-align: center;
-      white-space: nowrap;
-      font-weight: 500;
-      background: white;
-      position: relative;
-      z-index: 2;
-    }
-    .org-node.holding {
-      background: #b3d4fc;
-      border-color: #5b9bd5;
-      font-weight: bold;
-    }
-    .org-node.sub {
-      background: #ffe0b2;
-      border-color: #c49a6c;
-    }
-    .org-node.pf {
-      background: #fff3cd;
-      border-color: #c9a84c;
-      font-size: 12px;
-    }
-    .org-node.mutuo-node {
-      background: #fff;
-      border-color: #999;
-      font-size: 12px;
-    }
-    .org-node.bandeira {
-      background: #c8e6c9;
-      border-color: #66bb6a;
-      font-weight: bold;
-    }
-    .org-node.source {
-      background: #f5f5f5;
-      border-color: #aaa;
-    }
+        /* Title */
+        h2 {
+            font-size: 56px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
 
-    .org-connector {
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      height: 32px;
-      position: relative;
-    }
-    .org-connector .vline {
-      width: 2px;
-      height: 100%;
-      background: #888;
-    }
+        .subtitle {
+            font-size: 18px;
+            color: #bfdbfe;
+            margin-bottom: 60px;
+            font-weight: 400;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
 
-    /* SVG lines */
-    .org-svg-container {
-      position: relative;
-      width: 100%;
-    }
-    .org-svg-container svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    /* Organograma via flex layout */
-    .org-wrapper {
-      overflow-x: auto;
-      padding: 16px;
-    }
-    .org-level {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .org-arrow {
-      text-align: center;
-      color: #888;
-      font-size: 20px;
-      line-height: 1;
-    }
-    .org-branch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .org-children {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: nowrap;
-    }
-    .org-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      min-width: 120px;
-    }
-    .org-sub-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .org-sub-children {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-    }
-    .label-mutuo {
-      font-size: 11px;
-      color: #666;
-      font-style: italic;
-    }
-    .label-fluxo {
-      font-size: 11px;
-      color: #888;
-      font-style: italic;
-      margin-top: 2px;
-    }
-    .line-down {
-      width: 2px;
-      height: 20px;
-      background: #888;
-      margin: 0 auto;
-    }
-    .line-down-long {
-      width: 2px;
-      height: 36px;
-      background: #888;
-      margin: 0 auto;
-    }
-    .hline-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      height: 2px;
-      width: 100%;
-    }
-    .hline {
-      height: 2px;
-      background: #888;
-      flex: 1;
-    }
-    .org-three-cols {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-    }
-    .org-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .org-col-children {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .org-col-child {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .org-bandeira-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      margin-top: 8px;
-    }
-    .fluxo-lines {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      margin-top: 4px;
-    }
-    .fluxo-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-  </style>
+        /* Buttons container */
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        /* PADRONIZA ALTURA DOS CARDS */
+
+        /* ALTURA PADRÃO SÓ PARA CARDS DE IMÓVEIS */
+.card-imovel {
+    height: 180px;
+    justify-content: center;
+}
+
+
+        .btn {
+            padding: 20px 30px;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: #ffffff;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(30, 64, 175, 0.5);
+            border-color: #d4af37;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            color: #ffffff;
+            border: 2px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            color: #1e40af;
+            border-color: #ffffff;
+        }
+
+        .btn-icon {
+            font-size: 32px;
+        }
+
+        .btn-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-sublabel {
+            font-size: 12px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* Botão Organograma */
+        .btn-organograma {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #ffffff;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .btn-organograma:hover {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1050px;
+            max-height: 90vh;
+            overflow: auto;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 0.4s ease-out;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px; height: 36px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .modal-close:hover {
+            background: #ef4444;
+        }
+        .modal-title {
+            text-align: center;
+            margin: 0 0 28px 0;
+            color: #d4af37;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Organograma */
+        .org-wrapper {
+            overflow-x: auto;
+            padding: 8px;
+        }
+        .org-level {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-width: 850px;
+        }
+        .org-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        .org-node {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid;
+            text-align: center;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 13px;
+            color: #0f172a;
+        }
+        .org-node.source {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .org-node.holding {
+            background: #93c5fd;
+            border-color: #3b82f6;
+            font-size: 14px;
+        }
+        .org-node.sub {
+            background: #fcd34d;
+            border-color: #d4af37;
+        }
+        .org-node.pf {
+            background: #fef3c7;
+            border-color: #d97706;
+            font-size: 12px;
+        }
+        .org-node.mutuo-node {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+            font-size: 12px;
+        }
+        .org-node.bandeira {
+            background: #86efac;
+            border-color: #22c55e;
+            font-size: 14px;
+        }
+        .line-down {
+            width: 2px;
+            height: 18px;
+            background: #64748b;
+            margin: 0 auto;
+        }
+        .line-down-long {
+            width: 2px;
+            height: 30px;
+            background: #64748b;
+            margin: 0 auto;
+        }
+        .org-three-cols {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+        }
+        .org-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .org-col-children {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .org-col-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .label-mutuo {
+            font-size: 11px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        .label-fluxo {
+            font-size: 10px;
+            color: #22c55e;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .hline-full {
+            height: 2px;
+            background: #64748b;
+            width: 70%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 40px;
+                .card-imovel {
+    height: 150px;
+}
+
+            .buttons-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .btn {
+                padding: 18px 24px;
+                font-size: 16px;
+            }
+
+            .logo-text h1 {
+                font-size: 28px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+            /* AJUSTE FINO SÓ DA TELA GERENCIADORA */
+.tela-gerenciadora h2 {
+    font-size: 30px;
+}
+
+.tela-gerenciadora .subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Botão Organograma -->
+    <button class="btn-organograma" onclick="document.getElementById('modalOrganograma').classList.add('active')">📊 Organograma</button>
 
-<header style="position: relative;">
-  <h1>🏃‍♀️ Treino Infantil – 11 anos</h1>
-  <p>Plano seguro, divertido e feito especialmente para crianças</p>
-  <button class="btn-organograma" onclick="document.getElementById('modalOrganograma').classList.add('active')">Organograma</button>
-</header>
+    <!-- Modal Organograma -->
+    <div id="modalOrganograma" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+      <div class="modal-content">
+        <button class="modal-close" onclick="document.getElementById('modalOrganograma').classList.remove('active')">✕</button>
+        <h2 class="modal-title">Organograma Societário</h2>
+        <div class="org-wrapper">
+          <div class="org-level">
 
-<!-- Modal Organograma -->
-<div id="modalOrganograma" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('active')">
-  <div class="modal-content">
-    <button class="modal-close" onclick="document.getElementById('modalOrganograma').classList.remove('active')">✕</button>
-    <h2 class="modal-title">Organograma Societário</h2>
-    <div class="org-wrapper">
-      <div class="org-level">
-
-        <!-- Nível 1: Fontes (PRB Telecom, Steed, MG, P3) -->
-        <div class="org-row" style="gap: 24px;">
-          <div class="org-node source">PRB Telecom</div>
-          <div class="org-node source">Steed</div>
-          <div class="org-node source">MG</div>
-          <div class="org-node source">P3</div>
-        </div>
-
-        <div class="line-down"></div>
-
-        <!-- Nível 2: Holding Central -->
-        <div class="org-node holding">PBR PART<br><small>(Holding Central)</small></div>
-
-        <div class="line-down"></div>
-
-        <!-- Linhas horizontais para 3 filiais -->
-        <div style="display:flex; align-items:flex-start; justify-content:center; width:100%;">
-          <div style="flex:1; height:2px; background:#888; margin-top:0;"></div>
-        </div>
-
-        <!-- Nível 3: Três empresas -->
-        <div class="org-three-cols">
-
-          <!-- DARK -->
-          <div class="org-col">
-            <div class="org-node sub">DARK</div>
-            <div class="line-down"></div>
-            <div class="org-col-children">
-              <div class="org-col-child">
-                <div class="org-node pf">Paulo<br><small>(PF até 50k)</small></div>
-              </div>
-              <div class="org-col-child">
-                <div class="org-node pf">Taty<br><small>(PF até 50k)</small></div>
-              </div>
-              <div class="org-col-child">
-                <div class="label-mutuo">MÚTUO</div>
-                <div class="line-down" style="height:10px;"></div>
-                <div class="org-node mutuo-node">PTCL</div>
-              </div>
+            <!-- Nível 1: Fontes -->
+            <div class="org-row" style="gap: 20px;">
+              <div class="org-node source">PRB Telecom</div>
+              <div class="org-node source">Steed</div>
+              <div class="org-node source">MG</div>
+              <div class="org-node source">P3</div>
             </div>
-          </div>
 
-          <!-- AMERICA -->
-          <div class="org-col">
-            <div class="org-node sub">AMERICA</div>
             <div class="line-down"></div>
-            <div class="org-col-children">
-              <div class="org-col-child">
-                <div class="org-node pf">Rafael<br><small>(PF até 50k)</small></div>
-                <div class="label-fluxo">Fluxo Financeiro</div>
-                <div class="line-down" style="height:10px;"></div>
-              </div>
-              <div class="org-col-child">
-                <div class="label-mutuo">MÚTUO</div>
-                <div class="line-down" style="height:10px;"></div>
-                <div class="org-node mutuo-node">RRB</div>
-                <div class="label-fluxo">Fluxo Financeiro</div>
-                <div class="line-down" style="height:10px;"></div>
-              </div>
-            </div>
-          </div>
 
-          <!-- BRUNO HBR -->
-          <div class="org-col">
-            <div class="org-node sub">BRUNO HBR</div>
+            <!-- Nível 2: Holding Central -->
+            <div class="org-node holding">PBR PART<br><small>(Holding Central)</small></div>
+
             <div class="line-down"></div>
-            <div class="org-col-children">
-              <div class="org-col-child">
-                <div class="org-node pf">Bruno<br><small>(PF até 50k)</small></div>
-              </div>
-              <div class="org-col-child">
-                <div class="org-node pf">Ellen<br><small>(PF até 50k)</small></div>
-                <div class="label-fluxo">Fluxo Financeiro</div>
-                <div class="line-down" style="height:10px;"></div>
-              </div>
-              <div class="org-col-child">
-                <div class="label-mutuo">MÚTUO</div>
-                <div class="line-down" style="height:10px;"></div>
-                <div class="org-node mutuo-node">BHR</div>
-              </div>
-            </div>
-          </div>
 
+            <!-- Linha horizontal -->
+            <div class="hline-full"></div>
+
+            <!-- Nível 3: Três empresas -->
+            <div class="org-three-cols">
+
+              <!-- DARK -->
+              <div class="org-col">
+                <div class="line-down" style="height:12px;"></div>
+                <div class="org-node sub">DARK</div>
+                <div class="line-down"></div>
+                <div class="org-col-children">
+                  <div class="org-col-child">
+                    <div class="org-node pf">Paulo<br><small>(PF até 50k)</small></div>
+                  </div>
+                  <div class="org-col-child">
+                    <div class="org-node pf">Taty<br><small>(PF até 50k)</small></div>
+                  </div>
+                  <div class="org-col-child">
+                    <div class="label-mutuo">MÚTUO</div>
+                    <div class="line-down" style="height:8px;"></div>
+                    <div class="org-node mutuo-node">PTCL</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AMERICA -->
+              <div class="org-col">
+                <div class="line-down" style="height:12px;"></div>
+                <div class="org-node sub">AMERICA</div>
+                <div class="line-down"></div>
+                <div class="org-col-children">
+                  <div class="org-col-child">
+                    <div class="org-node pf">Rafael<br><small>(PF até 50k)</small></div>
+                    <div class="label-fluxo">Fluxo Financeiro</div>
+                    <div class="line-down" style="height:8px;"></div>
+                  </div>
+                  <div class="org-col-child">
+                    <div class="label-mutuo">MÚTUO</div>
+                    <div class="line-down" style="height:8px;"></div>
+                    <div class="org-node mutuo-node">RRB</div>
+                    <div class="label-fluxo">Fluxo Financeiro</div>
+                    <div class="line-down" style="height:8px;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BRUNO HBR -->
+              <div class="org-col">
+                <div class="line-down" style="height:12px;"></div>
+                <div class="org-node sub">BRUNO HBR</div>
+                <div class="line-down"></div>
+                <div class="org-col-children">
+                  <div class="org-col-child">
+                    <div class="org-node pf">Bruno<br><small>(PF até 50k)</small></div>
+                  </div>
+                  <div class="org-col-child">
+                    <div class="org-node pf">Ellen<br><small>(PF até 50k)</small></div>
+                    <div class="label-fluxo">Fluxo Financeiro</div>
+                    <div class="line-down" style="height:8px;"></div>
+                  </div>
+                  <div class="org-col-child">
+                    <div class="label-mutuo">MÚTUO</div>
+                    <div class="line-down" style="height:8px;"></div>
+                    <div class="org-node mutuo-node">BHR</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Nível 4: BANDEIRA -->
+            <div class="line-down-long"></div>
+            <div class="org-node bandeira">BANDEIRA<br><small>(Destino Final do Fluxo Financeiro)</small></div>
+
+          </div>
         </div>
-
-        <!-- Nível 4: BANDEIRA -->
-        <div class="line-down-long"></div>
-        <div class="org-node bandeira">BANDEIRA<br><small>(Destino Final do Fluxo Financeiro)</small></div>
-
       </div>
     </div>
-  </div>
+
+    <!-- Animated background -->
+    <div class="bg-animation">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+
+    <!-- Main content -->
+<div class="container" id="tela-home">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">PRB</div>
+                <div class="logo-text">
+                    <h1>PRB Holding</h1>
+                    <p>Sistema Integrado</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h2>Bem-vindo a Holding PRB</h2>
+        <p class="subtitle">Escolha sua Bandeira para continuar</p>
+
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <!-- Button 1: Bandeira Gerenciadora de Imóveis -->
+            <a href="javascript:void(0)" onclick="abrirGerenciadora()" class="btn btn-primary">
+
+                <span class="btn-icon">🏢</span>
+                <span class="btn-label">Gerenciadora</span>
+                <span class="btn-sublabel">de Imóveis</span>
+            </a>
+
+            <!-- Button 2: Bandeira Empresarial -->
+            <a href="https://brunohrb.github.io/prb/" class="btn btn-secondary">
+
+                <span class="btn-icon">💼</span>
+                <span class="btn-label">Empresarial</span>
+                <span class="btn-sublabel">Pró-Labore</span>
+            </a>
+        </div>
+    </div>
+
+<!-- TELA GERENCIADORA -->
+<div id="submenu-gerenciadora" class="container" style="display:none;">
+    <div class="buttons-container">
+
+<a href="https://brunohrb.github.io/bandeiraimoveis" class="btn btn-primary card-imovel">
+            <span class="btn-icon">🏠</span>
+            <span class="btn-label">Imóveis Mensal</span>
+            <span class="btn-sublabel">Contratos recorrentes</span>
+        </a>
+
+<a href="https://brunohrb.github.io/bandeirabeachhouse" class="btn btn-secondary card-imovel">
+            <span class="btn-icon">🌴</span>
+            <span class="btn-label">Imóveis por Temporada</span>
+            <span class="btn-sublabel">Airbnb · Booking</span>
+        </a>
+
+        <div class="btn btn-secondary" onclick="voltarGerenciadora()" style="grid-column: span 2;">
+            ← Voltar
+        </div>
+
+    </div>
 </div>
 
-<main>
+    <script>
+        // Smooth scroll on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Portal PRB carregado com sucesso!');
+        });
 
-  <section class="info">
-    <h2>📋 Informações Gerais</h2>
-    <ul>
-      <li>👧 Idade: 11 anos</li>
-      <li>⚖️ Peso: 26 kg</li>
-      <li>🏋️‍♀️ Experiência: Nunca treinou</li>
-      <li>📆 Frequência: 3x por semana</li>
-      <li>⏱️ Duração: 20 a 30 minutos</li>
-      <li>🚫 Sem pesos ou aparelhos</li>
-    </ul>
-  </section>
+function abrirGerenciadora() {
+    document.getElementById('tela-home').style.display = 'none';
+    document.getElementById('submenu-gerenciadora').style.display = 'block';
+}
 
-  <section class="treino">
-
-    <!-- DIA 1 -->
-    <div class="card">
-      <h3>🟦 Dia 1 – Corpo Inteiro</h3>
-
-      <div class="exercicio">🤸‍♀️ Aquecimento: Pular como sapinho – 2 min</div>
-      <div class="exercicio">🪑 Agachar e sentar na cadeira – 2x10</div>
-      <div class="exercicio">🧍‍♀️ Ficar na ponta dos pés – 3x15s</div>
-      <div class="exercicio">🦵 Elevar joelhos parado – 2x20</div>
-      <div class="exercicio">🧘‍♀️ Alongamento leve – 5 min</div>
-    </div>
-
-    <!-- DIA 2 -->
-    <div class="card">
-      <h3>🟩 Dia 2 – Coordenação e Postura</h3>
-
-      <div class="exercicio">🚶‍♀️ Caminhar em linha reta – 3 min</div>
-      <div class="exercicio">🧍‍♀️ Equilíbrio em um pé só – 3x15s cada</div>
-      <div class="exercicio">🙆‍♀️ Braços abrindo e fechando – 2x15</div>
-      <div class="exercicio">🐢 Prancha de joelhos – 3x10s</div>
-      <div class="exercicio">🧘‍♀️ Respiração e alongamento – 5 min</div>
-    </div>
-
-    <!-- DIA 3 -->
-    <div class="card">
-      <h3>🟨 Dia 3 – Força Leve e Diversão</h3>
-
-      <div class="exercicio">🎈 Pular corda imaginária – 2 min</div>
-      <div class="exercicio">🐻 Caminhar como ursinho – 3x20s</div>
-      <div class="exercicio">🪜 Subir e descer degrau baixo – 2x10</div>
-      <div class="exercicio">🙋‍♀️ Flexão na parede – 2x10</div>
-      <div class="exercicio">🧘‍♀️ Relaxamento final – 5 min</div>
-    </div>
-
-  </section>
-
-</main>
-
-<footer>
-  ⚠️ Este treino é educativo e recreativo. Sempre com supervisão de um adulto ou profissional.
-</footer>
-
+   function voltarGerenciadora() {
+    document.getElementById('submenu-gerenciadora').style.display = 'none';
+    document.getElementById('tela-home').style.display = 'block';
+}
+    </script>
 </body>
 </html>
