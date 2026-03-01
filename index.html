@@ -374,16 +374,46 @@
         .btn-sublabel { font-size: 12px; opacity: 0.8; font-weight: 400; }
 
         @media (max-width: 768px) {
-            h2 { font-size: 40px; }
+            h2 { font-size: 32px; }
             .card-imovel { height: 150px; }
-            .buttons-container { grid-template-columns: 1fr; gap: 20px; }
-            .card-full { grid-column: span 1; max-width: 100%; }
-            .btn { padding: 18px 24px; font-size: 16px; }
-            .logo-text h1 { font-size: 28px; }
-            .subtitle { font-size: 16px; }
-            .btn-organograma { top: 15px; right: 15px; padding: 10px 18px; font-size: 12px; }
+
+            /* 3 cards lado a lado no mobile */
+            .buttons-container {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 12px;
+            }
+            .card-full {
+                grid-column: span 1;
+                max-width: 100%;
+            }
+
+            .btn {
+                padding: 14px 8px;
+                font-size: 13px;
+                gap: 6px;
+                border-radius: 12px;
+            }
+            .btn-icon { font-size: 22px; }
+            .btn-label { font-size: 12px; }
+            .btn-sublabel { font-size: 10px; }
+
+            .logo-text h1 { font-size: 24px; }
+            .subtitle { font-size: 14px; margin-bottom: 30px; }
+            .header { margin-bottom: 30px; }
+
+            /* Organograma button abaixo da logo */
+            .btn-organograma {
+                position: static;
+                display: flex;
+                margin: 16px auto 0 auto;
+                padding: 10px 18px;
+                font-size: 12px;
+                animation: none;
+            }
+
             .modal-content { padding: 20px; }
             .organograma-title { font-size: 24px; }
+            .container { padding-top: 20px; }
         }
     </style>
 </head>
