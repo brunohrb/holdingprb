@@ -22,7 +22,6 @@
             position: relative;
         }
 
-        /* Animated background elements */
         .bg-animation {
             position: fixed;
             width: 100%;
@@ -70,21 +69,12 @@
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(30px, -30px);
-            }
-            50% {
-                transform: translate(-20px, 20px);
-            }
-            75% {
-                transform: translate(20px, 30px);
-            }
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(30px, -30px); }
+            50% { transform: translate(-20px, 20px); }
+            75% { transform: translate(20px, 30px); }
         }
 
-        /* Botão Organograma - Canto Superior Direito */
         .btn-organograma {
             position: fixed;
             top: 30px;
@@ -112,17 +102,10 @@
         }
 
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Modal do Organograma */
         .modal-organograma {
             display: none;
             position: fixed;
@@ -143,21 +126,17 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-.modal-content {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    max-width: 1600px;
-    max-height: 92vh;
-    width: 98%;
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 1600px;
+            max-height: 92vh;
+            width: 98%;
             overflow: auto;
             position: relative;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
@@ -165,14 +144,8 @@
         }
 
         @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .btn-fechar {
@@ -207,38 +180,21 @@
             margin-bottom: 30px;
         }
 
-        /* Organograma SVG Estilizado */
-.organograma-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 750px;
-    overflow: auto;
-}
-
-        .org-node {
-            transition: all 0.3s ease;
+        .organograma-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 750px;
+            overflow: auto;
         }
 
-        .org-node:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 5px 15px rgba(30, 64, 175, 0.3));
-        }
+        .org-node { transition: all 0.3s ease; }
+        .org-node:hover { transform: scale(1.05); filter: drop-shadow(0 5px 15px rgba(30, 64, 175, 0.3)); }
+        .org-node rect { transition: all 0.3s ease; }
+        .org-node:hover rect { fill: #3b82f6; }
+        .org-node text { pointer-events: none; }
 
-        .org-node rect {
-            transition: all 0.3s ease;
-        }
-
-        .org-node:hover rect {
-            fill: #3b82f6;
-        }
-
-        .org-node text {
-            pointer-events: none;
-        }
-
-        /* Main container */
         .container {
             position: relative;
             z-index: 10;
@@ -249,20 +205,11 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Header */
-        .header {
-            margin-bottom: 60px;
-        }
+        .header { margin-bottom: 60px; }
 
         .logo {
             display: inline-flex;
@@ -287,14 +234,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-            }
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5); }
         }
 
         .logo-text h1 {
@@ -312,7 +253,6 @@
             font-weight: 500;
         }
 
-        /* Title */
         h2 {
             font-size: 56px;
             color: #ffffff;
@@ -332,22 +272,23 @@
         }
 
         @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Buttons container */
         .buttons-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 50px;
+        }
+
+        /* Card Locadora ocupa linha inteira centralizado */
+        .card-full {
+            grid-column: span 2;
+            max-width: 420px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .card-imovel {
@@ -385,9 +326,7 @@
             z-index: -1;
         }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+        .btn:hover::before { left: 100%; }
 
         .btn-primary {
             background: linear-gradient(135deg, #1e40af, #1e3a8a);
@@ -417,63 +356,34 @@
             border-color: #ffffff;
         }
 
-        .btn-icon {
-            font-size: 32px;
+        .btn-tertiary {
+            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            color: #ffffff;
+            border: 2px solid #a78bfa;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
         }
 
-        .btn-label {
-            font-size: 16px;
-            font-weight: 600;
+        .btn-tertiary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.5);
+            border-color: #d4af37;
         }
 
-        .btn-sublabel {
-            font-size: 12px;
-            opacity: 0.8;
-            font-weight: 400;
-        }
+        .btn-icon { font-size: 32px; }
+        .btn-label { font-size: 16px; font-weight: 600; }
+        .btn-sublabel { font-size: 12px; opacity: 0.8; font-weight: 400; }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            h2 {
-                font-size: 40px;
-            }
-
-            .card-imovel {
-                height: 150px;
-            }
-
-            .buttons-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .btn {
-                padding: 18px 24px;
-                font-size: 16px;
-            }
-
-            .logo-text h1 {
-                font-size: 28px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-
-            .btn-organograma {
-                top: 15px;
-                right: 15px;
-                padding: 10px 18px;
-                font-size: 12px;
-            }
-
-            .modal-content {
-                padding: 20px;
-            }
-
-            .organograma-title {
-                font-size: 24px;
-            }
+            h2 { font-size: 40px; }
+            .card-imovel { height: 150px; }
+            .buttons-container { grid-template-columns: 1fr; gap: 20px; }
+            .card-full { grid-column: span 1; max-width: 100%; }
+            .btn { padding: 18px 24px; font-size: 16px; }
+            .logo-text h1 { font-size: 28px; }
+            .subtitle { font-size: 16px; }
+            .btn-organograma { top: 15px; right: 15px; padding: 10px 18px; font-size: 12px; }
+            .modal-content { padding: 20px; }
+            .organograma-title { font-size: 24px; }
         }
     </style>
 </head>
@@ -492,7 +402,6 @@
             
             <div class="organograma-container">
                 <svg viewBox="0 0 1200 800" width="100%" height="100%">
-                    <!-- Definições -->
                     <defs>
                         <linearGradient id="gradHolding" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
@@ -512,48 +421,39 @@
                         </linearGradient>
                     </defs>
 
-                    <!-- Linhas de conexão - NÍVEL 1 PARA HOLDING -->
                     <g stroke="#64748b" stroke-width="3" fill="none">
-                        <!-- Empresas TOP para PRB PART -->
                         <line x1="230" y1="90" x2="600" y2="160" />
                         <line x1="410" y1="90" x2="600" y2="160" />
                         <line x1="590" y1="90" x2="600" y2="160" />
                         <line x1="770" y1="90" x2="600" y2="160" />
-                        
-                        <!-- PRB PART para empresas principais -->
                         <line x1="450" y1="220" x2="250" y2="310" />
                         <line x1="600" y1="220" x2="600" y2="310" />
                         <line x1="750" y1="220" x2="950" y2="310" />
                     </g>
 
-                    <!-- Linhas de DARK para PFs/empresas - CORRIGIDAS -->
                     <g stroke="#64748b" stroke-width="2" fill="none">
                         <line x1="150" y1="380" x2="85" y2="490" />
                         <line x1="250" y1="380" x2="205" y2="490" />
                         <line x1="350" y1="380" x2="380" y2="490" />
                     </g>
 
-                    <!-- Linhas de AMERICA para PFs/empresas - CORRIGIDAS -->
                     <g stroke="#64748b" stroke-width="2" fill="none">
                         <line x1="550" y1="380" x2="535" y2="490" />
                         <line x1="650" y1="380" x2="690" y2="490" />
                     </g>
 
-                    <!-- Linhas de BRUNO HBR para PFs/empresas - CORRIGIDAS -->
                     <g stroke="#64748b" stroke-width="2" fill="none">
                         <line x1="850" y1="380" x2="845" y2="490" />
                         <line x1="950" y1="380" x2="965" y2="490" />
                         <line x1="1050" y1="380" x2="1100" y2="490" />
                     </g>
 
-                    <!-- Fluxos financeiros para Bandeira (tracejado) - CORRIGIDOS -->
                     <g stroke="#10b981" stroke-width="3" fill="none" stroke-dasharray="8,8">
                         <line x1="205" y1="555" x2="500" y2="650" />
                         <line x1="690" y1="570" x2="600" y2="650" />
                         <line x1="1100" y1="570" x2="700" y2="650" />
                     </g>
 
-                    <!-- NÍVEL 1: Empresas no topo -->
                     <g class="org-node">
                         <rect x="150" y="40" width="160" height="60" rx="10" fill="url(#gradEmpresa)" stroke="#3b82f6" stroke-width="2"/>
                         <text x="230" y="75" text-anchor="middle" fill="white" font-size="18" font-weight="700">PRB Telecom</text>
@@ -571,14 +471,12 @@
                         <text x="770" y="75" text-anchor="middle" fill="white" font-size="18" font-weight="700">P3</text>
                     </g>
 
-                    <!-- NÍVEL 2: Holding Central -->
                     <g class="org-node">
                         <rect x="450" y="160" width="300" height="70" rx="12" fill="url(#gradHolding)" stroke="#d4af37" stroke-width="3"/>
                         <text x="600" y="190" text-anchor="middle" fill="white" font-size="22" font-weight="800">PRB PART</text>
                         <text x="600" y="215" text-anchor="middle" fill="white" font-size="14">(Holding Central)</text>
                     </g>
 
-                    <!-- NÍVEL 3: Empresas principais -->
                     <g class="org-node">
                         <rect x="100" y="310" width="300" height="80" rx="12" fill="url(#gradEmpresa)" stroke="#3b82f6" stroke-width="2"/>
                         <text x="250" y="345" text-anchor="middle" fill="white" font-size="20" font-weight="700">DARK</text>
@@ -595,8 +493,6 @@
                         <text x="950" y="370" text-anchor="middle" fill="white" font-size="14">MUTUO</text>
                     </g>
 
-                    <!-- NÍVEL 4: Pessoas Físicas e Empresas - REORGANIZADAS -->
-                    <!-- Grupo DARK -->
                     <g class="org-node">
                         <rect x="30" y="490" width="110" height="65" rx="10" fill="url(#gradPessoa)" stroke="#1e40af" stroke-width="2"/>
                         <text x="85" y="517" text-anchor="middle" fill="#1e40af" font-size="15" font-weight="700">Paulo</text>
@@ -612,7 +508,6 @@
                         <text x="380" y="540" text-anchor="middle" fill="white" font-size="18" font-weight="700">PTCL</text>
                     </g>
 
-                    <!-- Grupo AMERICA -->
                     <g class="org-node">
                         <rect x="480" y="490" width="110" height="65" rx="10" fill="url(#gradPessoa)" stroke="#1e40af" stroke-width="2"/>
                         <text x="535" y="517" text-anchor="middle" fill="#1e40af" font-size="15" font-weight="700">Rafael</text>
@@ -623,7 +518,6 @@
                         <text x="690" y="540" text-anchor="middle" fill="white" font-size="18" font-weight="700">RRB</text>
                     </g>
 
-                    <!-- Grupo BRUNO HBR -->
                     <g class="org-node">
                         <rect x="790" y="490" width="110" height="65" rx="10" fill="url(#gradPessoa)" stroke="#1e40af" stroke-width="2"/>
                         <text x="845" y="517" text-anchor="middle" fill="#1e40af" font-size="15" font-weight="700">Bruno</text>
@@ -639,31 +533,24 @@
                         <text x="1100" y="540" text-anchor="middle" fill="white" font-size="18" font-weight="700">BHR</text>
                     </g>
 
-                    <!-- Textos de Fluxo Financeiro -->
                     <text x="370" y="615" text-anchor="middle" fill="#10b981" font-size="14" font-weight="600">Fluxo Financeiro</text>
                     <text x="600" y="615" text-anchor="middle" fill="#10b981" font-size="14" font-weight="600">Fluxo Financeiro</text>
                     <text x="830" y="615" text-anchor="middle" fill="#10b981" font-size="14" font-weight="600">Fluxo Financeiro</text>
 
-                    <!-- NÍVEL 5: Bandeira Final -->
                     <g class="org-node">
                         <rect x="400" y="650" width="400" height="90" rx="15" fill="url(#gradBandeira)" stroke="#d4af37" stroke-width="3"/>
                         <text x="600" y="685" text-anchor="middle" fill="white" font-size="24" font-weight="800">BANDEIRA</text>
                         <text x="600" y="715" text-anchor="middle" fill="white" font-size="15">(Destino Final de Fluxo Financeiro)</text>
                     </g>
 
-                    <!-- Legenda -->
                     <g transform="translate(50, 760)">
                         <text x="0" y="0" fill="#1e40af" font-size="14" font-weight="700">Legenda:</text>
-                        
                         <rect x="100" y="-12" width="50" height="20" rx="5" fill="url(#gradHolding)" stroke="#3b82f6" stroke-width="1"/>
                         <text x="155" y="3" fill="#1e40af" font-size="13" font-weight="600">Holding</text>
-                        
                         <rect x="270" y="-12" width="50" height="20" rx="5" fill="url(#gradEmpresa)" stroke="#3b82f6" stroke-width="1"/>
                         <text x="325" y="3" fill="#1e40af" font-size="13" font-weight="600">Empresa</text>
-                        
                         <rect x="450" y="-12" width="50" height="20" rx="5" fill="url(#gradPessoa)" stroke="#1e40af" stroke-width="1"/>
                         <text x="505" y="3" fill="#1e40af" font-size="13" font-weight="600">Pessoa Física</text>
-                        
                         <rect x="650" y="-12" width="50" height="20" rx="5" fill="url(#gradBandeira)" stroke="#10b981" stroke-width="1"/>
                         <text x="705" y="3" fill="#1e40af" font-size="13" font-weight="600">Bandeira</text>
                     </g>
@@ -681,7 +568,6 @@
 
     <!-- Main content -->
     <div class="container" id="tela-home">
-        <!-- Header -->
         <div class="header">
             <div class="logo">
                 <div class="logo-icon">PRB</div>
@@ -692,11 +578,9 @@
             </div>
         </div>
 
-        <!-- Title -->
         <h2>Bem-vindo a Holding PRB</h2>
         <p class="subtitle">Escolha sua Bandeira para continuar</p>
 
-        <!-- Buttons -->
         <div class="buttons-container">
             <a href="javascript:void(0)" onclick="abrirGerenciadora()" class="btn btn-primary">
                 <span class="btn-icon">🏢</span>
@@ -706,8 +590,14 @@
 
             <a href="https://brunohrb.github.io/prb/" class="btn btn-secondary">
                 <span class="btn-icon">💼</span>
-                <span class="btn-label">Empresarial</span>
+                <span class="btn-label">Texnet</span>
                 <span class="btn-sublabel">Pró-Labore</span>
+            </a>
+
+            <a href="http://138.36.1.23:8080" class="btn btn-tertiary card-full">
+                <span class="btn-icon">🚗</span>
+                <span class="btn-label">Locadora</span>
+                <span class="btn-sublabel">Sistema de Locação</span>
             </a>
         </div>
     </div>
@@ -734,7 +624,6 @@
     </div>
 
     <script>
-        // Funções de navegação
         function abrirGerenciadora() {
             document.getElementById('tela-home').style.display = 'none';
             document.getElementById('submenu-gerenciadora').style.display = 'block';
@@ -745,7 +634,6 @@
             document.getElementById('tela-home').style.display = 'block';
         }
 
-        // Funções do modal
         function abrirOrganograma() {
             document.getElementById('modalOrganograma').classList.add('active');
         }
@@ -760,7 +648,6 @@
             }
         }
 
-        // Atalho ESC para fechar modal
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 fecharOrganograma();
