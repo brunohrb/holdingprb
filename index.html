@@ -373,6 +373,10 @@
         .btn-label { font-size: 16px; font-weight: 600; }
         .btn-sublabel { font-size: 12px; opacity: 0.8; font-weight: 400; }
 
+        .btn-organograma-mobile {
+            display: none;
+        }
+
         @media (max-width: 768px) {
             h2 { font-size: 32px; }
             .card-imovel { height: 150px; }
@@ -401,14 +405,26 @@
             .subtitle { font-size: 14px; margin-bottom: 30px; }
             .header { margin-bottom: 30px; }
 
-            /* Organograma button abaixo da logo */
+            /* Esconde botão fixed no mobile */
             .btn-organograma {
-                position: static;
+                display: none;
+            }
+
+            /* Mostra botão inline no mobile */
+            .btn-organograma-mobile {
                 display: flex;
                 margin: 16px auto 0 auto;
-                padding: 10px 18px;
-                font-size: 12px;
-                animation: none;
+                padding: 10px 20px;
+                font-size: 13px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #d4af37, #f4d03f);
+                color: #1e40af;
+                border: none;
+                border-radius: 12px;
+                cursor: pointer;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
             }
 
             .modal-content { padding: 20px; }
@@ -418,7 +434,7 @@
     </style>
 </head>
 <body>
-    <!-- Botão Organograma -->
+    <!-- Botão Organograma (posição fixed no desktop, inline no mobile via CSS) -->
     <button class="btn-organograma" onclick="abrirOrganograma()">
         <span>📊</span>
         <span>Organograma</span>
@@ -630,6 +646,12 @@
                 <span class="btn-sublabel">Sistema de Locação</span>
             </a>
         </div>
+
+        <!-- Botão organograma mobile - abaixo dos cards -->
+        <button class="btn-organograma-mobile" onclick="abrirOrganograma()">
+            <span>📊</span>
+            <span>Organograma</span>
+        </button>
     </div>
 
     <!-- TELA GERENCIADORA -->
