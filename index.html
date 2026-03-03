@@ -369,6 +369,32 @@
             border-color: #d4af37;
         }
 
+        .btn-quaternary {
+            background: linear-gradient(135deg, #065f46, #022c22);
+            color: #ffffff;
+            border: 2px solid #34d399;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.2);
+        }
+
+        .btn-quaternary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.4);
+            border-color: #d4af37;
+        }
+
+        .btn-quinary {
+            background: linear-gradient(135deg, #7c2d12, #431407);
+            color: #ffffff;
+            border: 2px solid #fb923c;
+            box-shadow: 0 10px 30px rgba(251, 146, 60, 0.2);
+        }
+
+        .btn-quinary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(251, 146, 60, 0.4);
+            border-color: #d4af37;
+        }
+
         .btn-icon { font-size: 32px; }
         .btn-label { font-size: 16px; font-weight: 600; }
         .btn-sublabel { font-size: 12px; opacity: 0.8; font-weight: 400; }
@@ -516,7 +542,7 @@
                     </g>
 
                     <g stroke="#10b981" stroke-width="3" fill="none" stroke-dasharray="8,8">
-                        <line x1="205" y1="555" x2="500" y2="650" />
+                        <line x1="380" y1="570" x2="500" y2="650" />
                         <line x1="690" y1="570" x2="600" y2="650" />
                         <line x1="1100" y1="570" x2="700" y2="650" />
                     </g>
@@ -655,10 +681,9 @@
                 <span class="btn-sublabel">de Imóveis</span>
             </a>
 
-            <a href="https://brunohrb.github.io/prb/" class="btn btn-secondary">
+            <a href="javascript:void(0)" onclick="abrirTexnet()" class="btn btn-secondary">
                 <span class="btn-icon">💼</span>
                 <span class="btn-label">Texnet</span>
-                <span class="btn-sublabel">Pró-Labore</span>
             </a>
 
             <a href="http://138.36.1.23:8080" class="btn btn-tertiary card-full">
@@ -696,7 +721,38 @@
         </div>
     </div>
 
+    <!-- TELA TEXNET -->
+    <div id="submenu-texnet" class="container" style="display:none;">
+        <div class="buttons-container">
+            <a href="https://brunohrb.github.io/prb/" class="btn btn-secondary card-imovel">
+                <span class="btn-icon">🧾</span>
+                <span class="btn-label">Pro-labore</span>
+                <span class="btn-sublabel">Gestão de Sócios</span>
+            </a>
+
+            <a href="https://brunohrb.github.io/indicadores/" class="btn btn-quaternary card-imovel">
+                <span class="btn-icon">📈</span>
+                <span class="btn-label">Indicadores</span>
+                <span class="btn-sublabel">Painel de Métricas</span>
+            </a>
+
+            <div class="btn btn-secondary" onclick="voltarTexnet()" style="grid-column: span 2;">
+                ← Voltar
+            </div>
+        </div>
+    </div>
+
     <script>
+        function abrirTexnet() {
+            document.getElementById('tela-home').style.display = 'none';
+            document.getElementById('submenu-texnet').style.display = 'block';
+        }
+
+        function voltarTexnet() {
+            document.getElementById('submenu-texnet').style.display = 'none';
+            document.getElementById('tela-home').style.display = 'block';
+        }
+
         function abrirGerenciadora() {
             document.getElementById('tela-home').style.display = 'none';
             document.getElementById('submenu-gerenciadora').style.display = 'block';
